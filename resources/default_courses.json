@@ -1,0 +1,52 @@
+{
+  "courses": [
+    {
+      "title": "Mathematics I",
+      "lp": 5,
+      "exam_format": "Written",
+      "group": "A"
+    },
+    {
+      "title": "Physics I",
+      "lp": 5,
+      "exam_format": "Written",
+      "group": "A"
+    },
+    {
+      "title": "Chemistry I",
+      "lp": 5,
+      "exam_format": "Written",
+      "group": "B"
+    },
+    {
+      "title": "Computer Science I",
+      "lp": 5,
+      "exam_format": "Project",
+      "group": "B"
+    },
+    {
+      "title": "Mathematics II",
+      "lp": 5,
+      "exam_format": "Written",
+      "group": "A"
+    },
+    {
+      "title": "Physics II",
+      "lp": 5,
+      "exam_format": "Written",
+      "group": "A"
+    },
+    {
+      "title": "Chemistry II",
+      "lp": 5,
+      "exam_format": "Written",
+      "group": "B"
+    },
+    {
+      "title": "Computer Science II",
+      "lp": 5,
+      "exam_format": "Project",
+      "group": "B"
+    }
+  ]
+}

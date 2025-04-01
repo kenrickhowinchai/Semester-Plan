@@ -1,0 +1,1408 @@
+[
+  {
+    "title": "Applied Deep Learning in Engineering",
+    "module_code": "51077",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Applied Machine Learning in Engineering",
+    "module_code": "51049",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Kognitive Algorithmen",
+    "module_code": "40525",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Künstliche Intelligenz: Grundlagen und Anwendungen",
+    "module_code": "40531",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Machine Intelligence I",
+    "module_code": "40548",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Machine Intelligence II",
+    "module_code": "40549",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Machine Learning 1",
+    "module_code": "40550",
+    "credits": 9,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Machine Learning 1-X",
+    "module_code": "41140",
+    "credits": 12,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Machine Learning 2",
+    "module_code": "40551",
+    "credits": 9,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Machine Learning 2-X",
+    "module_code": "41173",
+    "credits": 12,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Motion Planning",
+    "module_code": "41049",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "k.A.",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Optimization Algorithms",
+    "module_code": "41016",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Robotics",
+    "module_code": "40686",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Sicherheit und Zuverlässigkeit technischer Anlagen",
+    "module_code": "30530",
+    "credits": 3,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Software Engineering eingebetteter Systeme",
+    "module_code": "40710",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Stochastik für Informatik",
+    "module_code": "20217",
+    "credits": 9,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  {
+    "title": "Stochastik für Informatiker",
+    "module_code": "20416",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
+  
+  {
+    "title": "Computational Fluid Dynamics (CFD) in der Verfahrenstechnik",
+    "module_code": "30151",
+    "credits": 4,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Critical Infrastructure and Digitalization",
+    "module_code": "51051",
+    "credits": 3,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Data Science and Artificial Intelligence for Urban Water Management",
+    "module_code": "50905",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Deep Learning 1",
+    "module_code": "41071",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Deep Learning 2",
+    "module_code": "41072",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Einführung in die Finite-Elemente-Methode",
+    "module_code": "50214",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Gasdynamik I (GD1)",
+    "module_code": "50009",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Gasdynamik II (GD2)",
+    "module_code": "50010",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  
+  {
+    "title": "Automatisierungstechnik",
+    "module_code": "50160",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet", 
+    "semester": "WiSe/SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Digitale Regelungen",
+    "module_code": "50706",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Fahrzeugregelung",
+    "module_code": "50698",
+    "credits": 12,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Flow Measurement Methods",
+    "module_code": "50068",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Iterativ lernende Systeme",
+    "module_code": "30637",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  
+  {
+    "title": "Control of Turbulent Flows",
+    "module_code": "50621",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Cyber-Physical Systems",
+    "module_code": "51098",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Energieverfahrenstechnik II",
+    "module_code": "30497",
+    "credits": 3,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Grundlagen der Prozess- und Anlagensicherheit (6LP)",
+    "module_code": "30987",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Prozess- und Anlagendynamik",
+    "module_code": "30523",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Prozessführung",
+    "module_code": "30520",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Technische Reaktionsführung I",
+    "module_code": "30537",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Thermal design of compression refrigeration machines",
+    "module_code": "30208",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  {
+    "title": "Thermische Verfahrenstechnik",
+    "module_code": "30043",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.1 Profilbereich: Prozess- und Systemtechnik"
+  },
+  
+  {
+    "title": "3D Druck in der Mechanik",
+    "module_code": "50830",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Auswuchttechnik",
+    "module_code": "50158",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "BEC Basismodul - Reflexion und Verantwortung",
+    "module_code": "50959",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "BEC Vertiefung - Technik- und Wissenschaftsreflexion (6 ECTS)",
+    "module_code": "50815",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Beanspruchungsgerechtes und ressourcenschonendes Konstruieren",
+    "module_code": "50170",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Bildgestützte Automatisierung",
+    "module_code": "51038",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Entwicklungsmethoden für nachhaltige Produkte",
+    "module_code": "50884",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Festigkeit und Lebensdauer",
+    "module_code": "50276",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Funktionseinheiten der Mikrotechnik I",
+    "module_code": "50300",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Funktionseinheiten der Mikrotechnik II",
+    "module_code": "50301",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Getriebetechnik",
+    "module_code": "50315",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Integrative Produktentwicklung",
+    "module_code": "50364",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Kostenmanagement und Recht in der Produktentwicklung",
+    "module_code": "50388",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Mechatronischer Systementwurf",
+    "module_code": "50232",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Mikrooptische Systeme",
+    "module_code": "50861",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Nachhaltige Produktentwicklung - Blue Engineering",
+    "module_code": "50459",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Projekt Technisches Wissen",
+    "module_code": "50811",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  {
+    "title": "Strukturmechanik",
+    "module_code": "50598",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2a Konstruktion und Gestaltung"
+  },
+  
+  {
+    "title": "Angewandte Bildgestützte Automatisierung I",
+    "module_code": "50190",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Angewandte Bildgestützte Automatisierung II",
+    "module_code": "50191",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Angewandte Mess- und Regelungstechnik",
+    "module_code": "50141",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Angewandte Produktionstechnik",
+    "module_code": "50988",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Angewandte Steuerungstechnik",
+    "module_code": "50143",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Anwendungen der Industriellen Informationstechnik",
+    "module_code": "50147",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Applied Data Science for Cyber-Physical Systems",
+    "module_code": "50020",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Applied Data Science for Quality Engineering",
+    "module_code": "50653",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Applied Data Science for Reliability Engineering",
+    "module_code": "50021",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Automatisierungstechnik",
+    "module_code": "50160",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Batterieproduktionstechnik für die Elektromobilität",
+    "module_code": "50873",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Bearbeitungssystem Werkzeugmaschine I",
+    "module_code": "50171",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Bearbeitungssystem Werkzeugmaschine II",
+    "module_code": "50172",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Bildgestützte Automatisierung",
+    "module_code": "51038",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Engineering im digitalen Zeitalter",
+    "module_code": "50972",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Fallstudien aus der Handhabungs- und Gerätetechnik",
+    "module_code": "51094",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Grundlagen der Industriellen Informationstechnik",
+    "module_code": "50327",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Industrielle Robotik",
+    "module_code": "50355",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Informationstechnische Prozesse für den digitalen Fabrikbetrieb",
+    "module_code": "50357",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Introduction to Engineering Data Analytics",
+    "module_code": "50722",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Labor Additive Präzisionsfertigung",
+    "module_code": "51050",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Mikromontage",
+    "module_code": "50828",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Model Based Systems Engineering",
+    "module_code": "50973",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Montagetechnik für die Industrie 4.0",
+    "module_code": "50457",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Numerical Control for Machine Tools and Machining Robots",
+    "module_code": "51046",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Pre-Processing in der Additiven Fertigung",
+    "module_code": "51031",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Produktionstechnik (Master)",
+    "module_code": "50494",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Projekt Virtuelle Produktentstehung",
+    "module_code": "50530",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Systems Engineering",
+    "module_code": "50962",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Technologien der Virtuellen Produktentstehung I",
+    "module_code": "50606",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Technologien der Virtuellen Produktentstehung II",
+    "module_code": "50607",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Verfahren und Materialien der Mikro- und Nanotechnologie",
+    "module_code": "50632",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  {
+    "title": "Virtual Engineering in Industry",
+    "module_code": "50637",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2b Produktionstechnik"
+  },
+  
+  {
+    "title": "Alternative Antriebssysteme und Fahrzeugkonzepte",
+    "module_code": "50135",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Antriebs- und Bremstechnik von Schienenfahrzeugen",
+    "module_code": "50555",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Aufbau und Struktur von Schienenfahrzeugen",
+    "module_code": "50554",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Aufladesysteme in Fahrzeugantrieben",
+    "module_code": "50026",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Automatisiertes Fahren",
+    "module_code": "50016",
+    "credits": 12,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Bremstechnik und Systemdynamik des Schienenverkehrs",
+    "module_code": "50156",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Einführung in die Schienenfahrzeugtechnik",
+    "module_code": "50224",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Entwurf Maritimer Systeme",
+    "module_code": "50863",
+    "credits": 9,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Experimentelle Forschung Fahrzeugantriebe",
+    "module_code": "50391",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Fahrzeugakustik",
+    "module_code": "50264",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Fahrzeuggetriebetechnik",
+    "module_code": "50267",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Fahrzeugregelung (12 LP)",
+    "module_code": "50698",
+    "credits": 12,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Gas- und Dampfturbinen - Auslegung und Betrieb",
+    "module_code": "50306",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Grundlagen der Fahrzeugantriebe",
+    "module_code": "50324",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Grundlagen der Kraftfahrzeugtechnik",
+    "module_code": "50331",
+    "credits": 12,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Grundlagen der Spurführung",
+    "module_code": "50266",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Medizintechnik 1",
+    "module_code": "50788",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Medizintechnik 2",
+    "module_code": "50789",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Medizintechnik im Krankenhaus",
+    "module_code": "51088",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Messung und Bewertung von Produktgeräuschen",
+    "module_code": "50832",
+    "credits": 3,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Nachhaltige verbrennungsmotorische Fahrzeugantriebe",
+    "module_code": "51141",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Numerical Acoustics",
+    "module_code": "50684",
+    "credits": 6,
+    "exam_type": "Hausarbeit",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Projekt nachhaltige Fahrzeugantriebe",
+    "module_code": "50018",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Rehabilitationstechnik 1",
+    "module_code": "50792",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Strömungssimulation in der Motorentechnik",
+    "module_code": "50027",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Technische Akustik für Fortgeschrittene",
+    "module_code": "50407",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Thermodynamiksimulation von Fahrzeugantrieben",
+    "module_code": "50614",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Verbrennungsmotoren 1",
+    "module_code": "50629",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  {
+    "title": "Ölhydraulische Antriebe und Steuerungssysteme",
+    "module_code": "50475",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.2c Produktorientierte Fächer"
+  },
+  
+  {
+    "title": "Fahrzeugmechatronik",
+    "module_code": "50004",
+    "credits": 12,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "Mechanische Schwingungslehre und Maschinendynamik",
+    "module_code": "50430",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "Mechatronik und Systemdynamik",
+    "module_code": "50432",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "Mechatronischer Systementwurf",
+    "module_code": "50232",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "Mobile Working Robot Systems",
+    "module_code": "50446",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "Simulation mechatronischer Systeme",
+    "module_code": "50572",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "Smart Materials - Grundlagen und Anwendungen",
+    "module_code": "50704",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "State Estimation for Robotics",
+    "module_code": "41018",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  {
+    "title": "Unterwassertechnologie",
+    "module_code": "50898",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "4.3 Profilbereich: Mechatronik"
+  },
+  
+  {
+    "title": "Agromechatronische Systeme und Feldroboter",
+    "module_code": "50876",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Automatisierungstechnisches Projekt",
+    "module_code": "50161",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Engineering Design, Structure and Rotor Dynamics Project",
+    "module_code": "50933",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Fluidsystemdynamik Projekt",
+    "module_code": "50299",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Project Ethical and Social Challenges of Emerging Technologies",
+    "module_code": "50810",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Fortgeschrittene Produktentwicklung (Master)",
+    "module_code": "50521",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Konstruktion von Maschinensystemen",
+    "module_code": "50510",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Konstruktion, Struktur- und Rotordynamik",
+    "module_code": "50509",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Maritime Technologien",
+    "module_code": "51020",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Mechatronische Systeme",
+    "module_code": "50500",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Medizintechnik",
+    "module_code": "50514",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Mikro- und Feingeräte - Master",
+    "module_code": "50517",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Modellieren im konstruktiven Leichtbau",
+    "module_code": "50002",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Robotik und Bildverarbeitung",
+    "module_code": "50061",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt Virtuelle Produktentstehung",
+    "module_code": "50530",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projekt nachhaltige Fahrzeugantriebe",
+    "module_code": "50018",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Projektlehre Solarenergie",
+    "module_code": "30648",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Qualitätsmanagement Projekt",
+    "module_code": "50537",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  
+  {
+    "title": "Applied Data Science for Quality Engineering",
+    "module_code": "XXXXX",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Applied Data Science for Reliability Engineering",
+    "module_code": "XXXXX",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Six Sigma Problemlösung",
+    "module_code": "XXXXX",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Introduction to Engineering Data Analytics with R",
+    "module_code": "XXXXX",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Techniken des Qualitäts- managements",
+    "module_code": "XXXXX",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Applied Data Science for Cyber-Physical Systems",
+    "module_code": "XXXXX",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Grundlagen des Qualitäts- managements",
+    "module_code": "XXXXX",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  
+  {
+    "title": "Fachpraktikum für den Masterstudiengang Computational Engineering Science",
+    "module_code": "50849",
+    "credits": 6,
+    "exam_type": "Keine Prüfung",
+    "grading": "Unbenotet",
+    "semester": "WiSe/SoSe",
+    "group": "8. Fachpraktikum"
+  },
+  
+  {
+    "title": "Masterarbeit Computational Engineering Science",
+    "module_code": "50850",
+    "credits": 24,
+    "exam_type": "Abschlussarbeit",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "9. Masterarbeit"
+  }
+]

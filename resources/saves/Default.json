@@ -1,0 +1,29 @@
+{
+  "semester_assignments": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": []
+  },
+  "expanded_groups": {
+    "1. Kernbereich 1: Informatik und Mathematik": true,
+    "2. Kernbereich: Simulation und Optimierung": false,
+    "3. Kernbereich: Messen, Steuern, Regeln": false,
+    "4.1 Profilbereich: Prozess- und Systemtechnik": false,
+    "4.2a Konstruktion und Gestaltung": false,
+    "4.2b Produktionstechnik": false,
+    "4.2c Produktorientierte Fächer": false,
+    "4.3 Profilbereich: Mechatronik": false,
+    "6. Projektarbeit": false,
+    "7. Freie Wahlmodule": false,
+    "8. Fachpraktikum": false,
+    "9. Masterarbeit": false
+  },
+  "favorites": [],
+  "window": {
+    "width": 1920,
+    "height": 1009
+  }
+}
