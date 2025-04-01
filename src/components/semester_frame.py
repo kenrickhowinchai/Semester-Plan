@@ -25,8 +25,10 @@ class SemesterFrame(tk.Frame):
         self.credits_label = tk.Label(self, text=f"Credits: 0/{max_credits} LP")
         self.credits_label.pack(fill=tk.X, pady=(0, 5))
         
-        # Create scrollable container for courses - make it much taller
-        self.canvas = tk.Canvas(self, width=220, height=700)  # Keep width reasonable but increase height significantly
+        # Create scrollable container for courses
+        # Make the canvas match the expected semester height better
+        frame_height = 500  # Reduced height to fit typical screen
+        self.canvas = tk.Canvas(self, width=220, height=frame_height)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         
         # Add scrollbar
@@ -36,11 +38,16 @@ class SemesterFrame(tk.Frame):
         
         # Create a frame inside the canvas to hold the courses
         self.course_container = tk.Frame(self.canvas)
-        self.canvas.create_window((0, 0), window=self.course_container, anchor='nw', width=210)
+        self.canvas_window = self.canvas.create_window(
+            (0, 0), 
+            window=self.course_container, 
+            anchor='nw', 
+            width=200,  # Slightly smaller to avoid horizontal scrollbar
+            tags="course_container"
+        )
         
         # Update scrollregion when the size of the frame changes
-        self.course_container.bind("<Configure>", 
-                             lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+        self.course_container.bind("<Configure>", self.update_scroll_region)
         
         # Bind mousewheel events
         self.bind_mousewheel_to_canvas()
@@ -66,16 +73,22 @@ class SemesterFrame(tk.Frame):
         # This will be done in the add_course method
 
     def _on_mousewheel(self, event):
-        """Handle mousewheel events for scrolling"""
-        # Different OSes send different events
-        delta = 0
-        if hasattr(event, 'num') and event.num == 5 or event.delta < 0:  # Scroll down
-            delta = 1
-        elif hasattr(event, 'num') and event.num == 4 or event.delta > 0:  # Scroll up
-            delta = -1
+        """Handle mousewheel events"""
+        # Get the scroll direction based on event type
+        if hasattr(event, 'delta'):
+            # Windows style mouse wheel event
+            # When scrolling down, delta is negative
+            # When we scroll down, we want content to move UP (positive scroll)
+            delta = -1 if event.delta < 0 else 1  # -1 for scroll down, 1 for scroll up
+        else:
+            # Unix style mouse wheel event (Button-4 is scroll up, Button-5 is scroll down)
+            delta = -1 if event.num == 5 else 1  # -1 for scroll down, 1 for scroll up
         
-        self.canvas.yview_scroll(delta, "units")
-        return "break"  # Prevent propagation to parent widget
+        # For moving content UP when scrolling DOWN (and vice versa), we negate the delta
+        # This gives the natural scrolling feel where content moves opposite to the scroll direction
+        self.canvas.yview_scroll(-delta, "units")
+        
+        return "break"  # Prevent the event from propagating
 
     def on_drop(self, event):
         """Handle drop events from the drag manager"""
@@ -126,32 +139,47 @@ class SemesterFrame(tk.Frame):
         # Update the total credits display
         self.update_total_credits()
         
-        # Update graduation requirements
-        self.drag_drop_manager.app.update_graduation_requirements()
+        # Force update of the scroll region to include the new course
+        self.course_container.update_idletasks()
+        self.update_scroll_region()
         
-        return True
+        # Use after_idle to make sure the scroll happens after everything is updated
+        self.after_idle(self.scroll_to_bottom)
+        
+        # Update the course list to gray out this course
+        if self.drag_drop_manager and hasattr(self.drag_drop_manager, 'app') and hasattr(self.drag_drop_manager.app, 'course_list'):
+            self.drag_drop_manager.app.course_list.display_courses()
+        
+        # Update graduation requirements
+        if self.drag_drop_manager and hasattr(self.drag_drop_manager, 'app'):
+            self.drag_drop_manager.app.update_graduation_requirements()
+        
+        return True  # Successfully added
 
     def remove_course(self, course):
         """Remove a course from this semester"""
         if course in self.courses:
-            print(f"Removing course {course.title} from {self.title}")
             self.courses.remove(course)
+            course.assigned_semester = None
             
-            # Destroy the visual representation if it exists
+            # Remove the corresponding visual block
             if course in self.course_blocks:
                 self.course_blocks[course].destroy()
                 del self.course_blocks[course]
-            
-            # Reset the course's assigned_semester
-            course.assigned_semester = None
-            
+                
             # Update the total credits display
             self.update_total_credits()
             
+            # Update the course list to un-gray this course
+            if self.drag_drop_manager and hasattr(self.drag_drop_manager, 'app') and hasattr(self.drag_drop_manager.app, 'course_list'):
+                self.drag_drop_manager.app.course_list.display_courses()
+            
             # Update graduation requirements
-            self.drag_drop_manager.app.update_graduation_requirements()
-        else:
-            print(f"Course {course.title} not found in {self.title}")
+            if self.drag_drop_manager and hasattr(self.drag_drop_manager, 'app'):
+                self.drag_drop_manager.app.update_graduation_requirements()
+                
+            return True
+        return False
 
     def update_total_credits(self):
         """Update the total credits display"""
@@ -180,3 +208,18 @@ class SemesterFrame(tk.Frame):
             color = '#333'
             self.credits_label.config(text=f"{self.total_credits}/{self.max_credits} LP", fg=color, font=("Arial", 10))
             self.credits_label.config(bg='#d0e0ff')  # Default background
+
+    def update_scroll_region(self, event=None):
+        """Update the scroll region to encompass all content"""
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+
+    def scroll_to_bottom(self):
+        """Scroll to the bottom of the course container"""
+        # Calculate the total height of all course blocks
+        total_height = sum(block.winfo_height() for block in self.course_blocks.values())
+        
+        # If the total height is greater than the visible area, scroll to bottom
+        if total_height > self.canvas.winfo_height():
+            # This should scroll to the bottom - using fraction instead of units
+            self.canvas.yview_moveto(1.0)
+            print(f"Scrolled to bottom - total height: {total_height}px, visible: {self.canvas.winfo_height()}px")

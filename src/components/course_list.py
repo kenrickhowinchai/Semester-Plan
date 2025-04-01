@@ -255,7 +255,7 @@ class CourseList(ttk.Frame):
             # Create a separate frame for the actual course blocks
             content_frame = ttk.Frame(group_frame)
             
-            # Create toggle button - NOW create it after content_frame exists
+            # Create toggle button
             is_expanded = self.expanded_groups.get(group_name, True)  # Default to expanded
             toggle_text = "▼" if is_expanded else "►"  # Down/right arrow
             toggle_button = ttk.Button(
@@ -279,7 +279,11 @@ class CourseList(ttk.Frame):
             
             # Add courses to the content frame
             for course in courses:
-                course_block = CourseBlock(content_frame, course, self.drag_drop_manager)
+                # Check if this course is already assigned to a semester
+                is_placed = hasattr(course, 'assigned_semester') and course.assigned_semester is not None
+                
+                # Create the course block
+                course_block = CourseBlock(content_frame, course, self.drag_drop_manager, is_placed)
                 course_block.pack(fill=tk.X, pady=2, padx=2)
             
             # Show content frame only if group is expanded

@@ -397,22 +397,30 @@ class CalendarApp:
                 width = state["window"].get("width", 1600)
                 height = state["window"].get("height", 900)
                 self.root.geometry(f"{width}x{height}")
+            
+            # Create a lookup dictionary for faster course retrieval by code
+            course_by_code = {course.module_code: course for course in self.courses if hasattr(course, 'module_code')}
+                
+            # Load favorite courses - IMPORTANT: Do this BEFORE creating the course list UI
+            if "favorites" in state:
+                favorites_count = 0
+                for module_code in state["favorites"]:
+                    if module_code in course_by_code:
+                        course_by_code[module_code].favorite = True
+                        favorites_count += 1
+                
+                print(f"Loaded {favorites_count} favorites")
+            
+            # Now that favorites are loaded, update course list display
+            if hasattr(self, "course_list"):
+                # Refresh course list to show favorites properly
+                self.course_list.display_courses()
                 
             # Set expanded groups state for course list
             if "expanded_groups" in state and hasattr(self, "course_list"):
                 self.course_list.expanded_groups = state["expanded_groups"]
                 self.course_list.display_courses()  # Refresh display with new expansion state
-                
-            # Create a lookup dictionary for faster course retrieval by code
-            course_by_code = {course.module_code: course for course in self.courses if hasattr(course, 'module_code')}
-                
-            # Load favorite courses
-            if "favorites" in state:
-                for module_code in state["favorites"]:
-                    if module_code in course_by_code:
-                        course_by_code[module_code].favorite = True
-                        print(f"Marked course '{course_by_code[module_code].title}' as favorite")
-                
+                    
             # Restore courses to semesters
             if "semester_assignments" in state:
                 # Assign courses to semesters

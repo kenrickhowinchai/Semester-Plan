@@ -225,6 +225,231 @@
     "semester": "WiSe",
     "group": "2. Kernbereich: Simulation und Optimierung"
   },
+  {
+    "title": "Hands-on project to finite element analysis",
+    "module_code": "50532",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Hybrid Simulations and Learning Methods",
+    "module_code": "51120",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Kontinuumsphysikalische Simulationen",
+    "module_code": "50527",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Machine Learning for Dynamical Systems",
+    "module_code": "50937",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Machine Learning in Computational Mechanics",
+    "module_code": "51078",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "k.A.",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Mechatronischer Systementwurf",
+    "module_code": "50232",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Molekulare Technische Thermodynamik",
+    "module_code": "30819",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Nonlinear Oscillations",
+    "module_code": "50465",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Numerische Implementierung der linearen FEM",
+    "module_code": "50990",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Numerische Implementierung der nichtlinearen FEM",
+    "module_code": "51017",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Numerische Simulationsverfahren im Ingenieurwesen",
+    "module_code": "50467",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Numerische Thermo- und Fluiddynamik - Grundlagen (CFD1)",
+    "module_code": "50471",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Numerische Thermo- und Fluiddynamik - Vertiefungen (CFD2)",
+    "module_code": "50472",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "OpenFoam for combustion process simulations",
+    "module_code": "50936",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Operations Research - Grundlagen (OR-GDL)",
+    "module_code": "70146",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Operations Research - Methods for Network Engineering (OR-INF)",
+    "module_code": "70186",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Optimization Algorithms",
+    "module_code": "41016",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Process Simulation",
+    "module_code": "30522",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Projekt Mehrkörperdynamik",
+    "module_code": "50515",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Projekt elektrifizierter Antriebsstrang",
+    "module_code": "50834",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Rotordynamik",
+    "module_code": "50549",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Simulation mechatronischer Systeme",
+    "module_code": "50572",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Slender and Sustainable Structures Lab",
+    "module_code": "50989",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Strukturdynamik",
+    "module_code": "50596",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
+  {
+    "title": "Technische Akustik - Grundlagen",
+    "module_code": "50999",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "2. Kernbereich: Simulation und Optimierung"
+  },
   
   {
     "title": "Automatisierungstechnik",
@@ -269,6 +494,114 @@
     "exam_type": "Mündliche Prüfung",
     "grading": "Benotet",
     "semester": "WiSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Journal Club Maschinelles Lernen",
+    "module_code": "30902",
+    "credits": 3,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Mechatronik und Systemdynamik",
+    "module_code": "50432",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Mehrgrößenregelung im Zeitbereich (10 LP)",
+    "module_code": "30510",
+    "credits": 10,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Mehrgrößenregelung im Zeitbereich (6 LP)",
+    "module_code": "30511",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Methoden der Datenanalyse in der Thermofluiddynamik",
+    "module_code": "50005",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Projekt Reibungsphysik",
+    "module_code": "50525",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Regelung mechatronischer Systeme",
+    "module_code": "50705",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Robuste Regelung",
+    "module_code": "30526",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Schwingungsmesstechnik",
+    "module_code": "50565",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Seminar Regelungstechnik (3 LP)",
+    "module_code": "30565",
+    "credits": 3,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Smart Sensing",
+    "module_code": "50917",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
+    "group": "3. Kernbereich: Messen, Steuern, Regeln"
+  },
+  {
+    "title": "Struktur- und Parameteridentifikation",
+    "module_code": "30534",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
     "group": "3. Kernbereich: Messen, Steuern, Regeln"
   },
   
@@ -1319,6 +1652,15 @@
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",
     "semester": "WiSe/SoSe",
+    "group": "6. Projektarbeit"
+  },
+  {
+    "title": "Thermoacoustic Projekt",
+    "module_code": "50976",
+    "credits": 6,
+    "exam_type": "Mündliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe",
     "group": "6. Projektarbeit"
   },
   

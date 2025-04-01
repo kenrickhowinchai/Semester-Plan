@@ -14,10 +14,11 @@ class CourseBlock(tk.Frame):
         "9.": "#FDEDEC",  # Masterarbeit: Light pink
     }
     
-    def __init__(self, parent, course, drag_drop_manager=None):
+    def __init__(self, parent, course, drag_drop_manager=None, is_placed=False):
         super().__init__(parent, relief=tk.RAISED, borderwidth=1, padx=5, pady=5)
         self.course = course
         self.drag_drop_manager = drag_drop_manager
+        self.is_placed = is_placed
         
         # Determine background color based on course group
         bg_color = self.get_background_color()
@@ -39,17 +40,20 @@ class CourseBlock(tk.Frame):
             command=self.toggle_favorite,
             relief=tk.FLAT,
             bd=0,
-            bg=bg_color
+            bg=bg_color,
+            state=tk.DISABLED if is_placed else tk.NORMAL  # Disable favorite button if placed
         )
         self.fav_btn.pack(side=tk.RIGHT)
         
         # Course title
+        text_color = "#A0A0A0" if is_placed else "#000000"  # Gray text if placed
         self.title_label = tk.Label(
             header_frame, 
             text=self.course.title, 
             font=("Helvetica", 10, "bold"),
             anchor="w",
-            bg=bg_color
+            bg=bg_color,
+            fg=text_color
         )
         self.title_label.pack(side=tk.LEFT, fill=tk.X, expand=True)
         
@@ -58,7 +62,8 @@ class CourseBlock(tk.Frame):
             self, 
             text=f"{self.course.credits} LP", 
             font=("Helvetica", 9),
-            bg=bg_color
+            bg=bg_color,
+            fg=text_color
         ).pack(anchor="w")
         
         # Course module code if available
@@ -67,7 +72,8 @@ class CourseBlock(tk.Frame):
                 self, 
                 text=f"Code: {self.course.module_code}", 
                 font=("Helvetica", 8),
-                bg=bg_color
+                bg=bg_color,
+                fg=text_color
             ).pack(anchor="w")
             
         # Course group if available
@@ -76,7 +82,8 @@ class CourseBlock(tk.Frame):
                 self, 
                 text=f"Group: {self.course.group}", 
                 font=("Helvetica", 8),
-                bg=bg_color
+                bg=bg_color,
+                fg=text_color
             ).pack(anchor="w")
         
         # Course semester availability if available
@@ -85,11 +92,23 @@ class CourseBlock(tk.Frame):
                 self, 
                 text=f"Offered: {self.course.semester}", 
                 font=("Helvetica", 8),
-                bg=bg_color
+                bg=bg_color,
+                fg=text_color
             ).pack(anchor="w")
         
-        # Make draggable
-        if self.drag_drop_manager:
+        # If course is placed, add an indicator label
+        if is_placed:
+            placement_info = f"Placed in {course.assigned_semester.title}" if course.assigned_semester else "Already placed"
+            tk.Label(
+                self,
+                text=placement_info,
+                font=("Helvetica", 8, "italic"),
+                bg=bg_color,
+                fg="#FF6B6B"  # Red-ish color
+            ).pack(anchor="w")
+        
+        # Make draggable only if not placed
+        if self.drag_drop_manager and not is_placed:
             self.bind("<ButtonPress-1>", self.on_drag_start)
             self.title_label.bind("<ButtonPress-1>", self.on_drag_start)
             for child in self.winfo_children():
@@ -97,6 +116,9 @@ class CourseBlock(tk.Frame):
     
     def get_background_color(self):
         """Determine the background color based on the course group"""
+        if self.is_placed:
+            return "#F0F0F0"  # Light gray for placed courses
+        
         if hasattr(self.course, 'group') and self.course.group:
             # Check if this course is a favorite
             if hasattr(self.course, 'favorite') and self.course.favorite:
@@ -113,6 +135,7 @@ class CourseBlock(tk.Frame):
         """Update the favorite button text based on status"""
         if hasattr(self.course, 'favorite') and self.course.favorite:
             self.fav_text.set("★")  # Solid star
+            print(f"Course {self.course.title} is marked as favorite")
         else:
             self.fav_text.set("☆")  # Empty star
     
