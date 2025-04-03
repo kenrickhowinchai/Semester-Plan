@@ -25,70 +25,81 @@ class SemesterFrame(tk.Frame):
         self.credits_label = tk.Label(self, text=f"Credits: 0/{max_credits} LP")
         self.credits_label.pack(fill=tk.X, pady=(0, 5))
         
-        # Create scrollable container for courses
-        # Make the canvas match the expected semester height better
-        frame_height = 500  # Reduced height to fit typical screen
-        self.canvas = tk.Canvas(self, width=220, height=frame_height)
-        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        # Create scrollable frame using standard ttk scrolledframe approach
+        # This is simpler and more reliable than custom canvas implementation
+        self.course_frame = ttk.Frame(self)
+        self.course_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Add scrollbar
-        scrollbar = tk.Scrollbar(self, command=self.canvas.yview)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        # Create canvas and scrollbar in the standard way
+        self.canvas = tk.Canvas(self.course_frame, height=500)
+        scrollbar = ttk.Scrollbar(self.course_frame, orient="vertical", command=self.canvas.yview)
+        
+        # Configure the canvas
         self.canvas.configure(yscrollcommand=scrollbar.set)
+        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
-        # Create a frame inside the canvas to hold the courses
-        self.course_container = tk.Frame(self.canvas)
+        # Create a frame to hold the courses
+        self.course_container = ttk.Frame(self.canvas)
+        
+        # Add the course container to the canvas
         self.canvas_window = self.canvas.create_window(
-            (0, 0), 
-            window=self.course_container, 
-            anchor='nw', 
-            width=200,  # Slightly smaller to avoid horizontal scrollbar
+            (0, 0),
+            window=self.course_container,
+            anchor="nw",
             tags="course_container"
         )
         
-        # Update scrollregion when the size of the frame changes
-        self.course_container.bind("<Configure>", self.update_scroll_region)
+        # Configure resize handling
+        self.canvas.bind("<Configure>", self._configure_canvas)
+        self.course_container.bind("<Configure>", self._configure_scroll_region)
         
-        # Bind mousewheel events
-        self.bind_mousewheel_to_canvas()
+        # Configure mousewheel scrolling with simpler approach
+        self._bind_mousewheel()
 
-    def bind_mousewheel_to_canvas(self):
-        """Bind mousewheel events to scroll the canvas"""
-        # Bind to the canvas itself
-        self.canvas.bind("<MouseWheel>", self._on_mousewheel)
-        self.canvas.bind("<Button-4>", self._on_mousewheel)
-        self.canvas.bind("<Button-5>", self._on_mousewheel)
+    def _bind_mousewheel(self):
+        """Bind mousewheel to canvas for scrolling"""
+        def _on_mousewheel(event):
+            # Simple scrolling function
+            if hasattr(event, 'delta'):
+                # Windows - positive delta = scroll up, negative = scroll down
+                self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            elif hasattr(event, 'num'):
+                if event.num == 4:
+                    # Linux - scroll up
+                    self.canvas.yview_scroll(-1, "units")
+                elif event.num == 5:
+                    # Linux - scroll down
+                    self.canvas.yview_scroll(1, "units")
+            return "break"
         
-        # Bind to the frame containing the canvas
-        self.bind("<MouseWheel>", self._on_mousewheel)
-        self.bind("<Button-4>", self._on_mousewheel)
-        self.bind("<Button-5>", self._on_mousewheel)
+        # Remove the bind_all calls to avoid conflicts
+        # Instead, bind to specific widgets
         
-        # Bind to the course container
-        self.course_container.bind("<MouseWheel>", self._on_mousewheel)
-        self.course_container.bind("<Button-4>", self._on_mousewheel)
-        self.course_container.bind("<Button-5>", self._on_mousewheel)
+        # Bind to canvas
+        self.canvas.bind("<MouseWheel>", _on_mousewheel)
+        self.canvas.bind("<Button-4>", _on_mousewheel)
+        self.canvas.bind("<Button-5>", _on_mousewheel)
         
-        # We'll also need to bind mousewheel events to any course blocks as they're added
-        # This will be done in the add_course method
+        # Bind to course container
+        self.course_container.bind("<MouseWheel>", _on_mousewheel)
+        self.course_container.bind("<Button-4>", _on_mousewheel)
+        self.course_container.bind("<Button-5>", _on_mousewheel)
+        
+        # We'll also need to bind to each course block when they're added
 
-    def _on_mousewheel(self, event):
-        """Handle mousewheel events"""
-        # Get the scroll direction based on event type
-        if hasattr(event, 'delta'):
-            # Windows style mouse wheel event
-            # When scrolling down, delta is negative
-            # When we scroll down, we want content to move UP (positive scroll)
-            delta = -1 if event.delta < 0 else 1  # -1 for scroll down, 1 for scroll up
-        else:
-            # Unix style mouse wheel event (Button-4 is scroll up, Button-5 is scroll down)
-            delta = -1 if event.num == 5 else 1  # -1 for scroll down, 1 for scroll up
+    def _configure_canvas(self, event):
+        """Update the canvas when it's resized"""
+        # Update the width of the window inside the canvas
+        self.canvas.itemconfig("course_container", width=event.width)
+
+    def _configure_scroll_region(self, event=None):
+        """Update the scroll region when the content changes"""
+        # Update the scrollregion to encompass the inner frame
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
         
-        # For moving content UP when scrolling DOWN (and vice versa), we negate the delta
-        # This gives the natural scrolling feel where content moves opposite to the scroll direction
-        self.canvas.yview_scroll(-delta, "units")
-        
-        return "break"  # Prevent the event from propagating
+        # Force a refresh of the canvas
+        self.canvas.update_idletasks()
 
     def on_drop(self, event):
         """Handle drop events from the drag manager"""
@@ -125,23 +136,34 @@ class SemesterFrame(tk.Frame):
         # Store a reference to the block for removal
         self.course_blocks[course] = course_block
         
-        # Bind mousewheel events to this course block
-        course_block.bind("<MouseWheel>", self._on_mousewheel)
-        course_block.bind("<Button-4>", self._on_mousewheel)
-        course_block.bind("<Button-5>", self._on_mousewheel)
+        # Add mousewheel scrolling to the course block
+        def _on_mousewheel(event):
+            if hasattr(event, 'delta'):
+                self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            elif hasattr(event, 'num'):
+                if event.num == 4:
+                    self.canvas.yview_scroll(-1, "units")
+                elif event.num == 5:
+                    self.canvas.yview_scroll(1, "units")
+            return "break"
         
-        # Bind to all child widgets of the course block too
+        # Bind mousewheel events for all platforms
+        course_block.bind("<MouseWheel>", _on_mousewheel)  # Windows
+        course_block.bind("<Button-4>", _on_mousewheel)    # Linux scroll up
+        course_block.bind("<Button-5>", _on_mousewheel)    # Linux scroll down
+        
+        # Also bind to all child widgets of the course block
         for child in course_block.winfo_children():
-            child.bind("<MouseWheel>", self._on_mousewheel)
-            child.bind("<Button-4>", self._on_mousewheel)
-            child.bind("<Button-5>", self._on_mousewheel)
+            child.bind("<MouseWheel>", _on_mousewheel)
+            child.bind("<Button-4>", _on_mousewheel)
+            child.bind("<Button-5>", _on_mousewheel)
         
         # Update the total credits display
         self.update_total_credits()
         
         # Force update of the scroll region to include the new course
         self.course_container.update_idletasks()
-        self.update_scroll_region()
+        self._configure_scroll_region()
         
         # Use after_idle to make sure the scroll happens after everything is updated
         self.after_idle(self.scroll_to_bottom)
@@ -209,17 +231,13 @@ class SemesterFrame(tk.Frame):
             self.credits_label.config(text=f"{self.total_credits}/{self.max_credits} LP", fg=color, font=("Arial", 10))
             self.credits_label.config(bg='#d0e0ff')  # Default background
 
-    def update_scroll_region(self, event=None):
-        """Update the scroll region to encompass all content"""
-        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-
     def scroll_to_bottom(self):
-        """Scroll to the bottom of the course container"""
-        # Calculate the total height of all course blocks
-        total_height = sum(block.winfo_height() for block in self.course_blocks.values())
+        """Scroll to show the most recently added course"""
+        # Get the current scrollregion
+        _, _, _, scroll_height = self.canvas.bbox("all") if self.canvas.bbox("all") else (0, 0, 0, 0)
         
-        # If the total height is greater than the visible area, scroll to bottom
-        if total_height > self.canvas.winfo_height():
-            # This should scroll to the bottom - using fraction instead of units
+        if scroll_height > self.canvas.winfo_height():
+            # Calculate position to show the bottom of the content
+            # 1.0 means scroll all the way to the bottom
             self.canvas.yview_moveto(1.0)
-            print(f"Scrolled to bottom - total height: {total_height}px, visible: {self.canvas.winfo_height()}px")
+            print(f"Scrolled to bottom - scroll height: {scroll_height}, visible: {self.canvas.winfo_height()}")

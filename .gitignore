@@ -1,0 +1,26 @@
+# Ignore all saved plans
+saves/*.json
+
+# But keep the default plan
+!saves/default.json
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# User-specific files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/

@@ -1,12 +1,13 @@
 {
   "semester_assignments": {
-    "0": [
-      "50160",
-      "40549",
-      "51049",
-      "40525"
+    "0": [],
+    "1": [
+      "51077",
+      "40525",
+      "40548",
+      "40531",
+      "40550"
     ],
-    "1": [],
     "2": [],
     "3": [],
     "4": [],
@@ -14,13 +15,13 @@
   },
   "expanded_groups": {
     "1. Kernbereich 1: Informatik und Mathematik": true,
-    "2. Kernbereich: Simulation und Optimierung": false,
+    "2. Kernbereich: Simulation und Optimierung": true,
     "3. Kernbereich: Messen, Steuern, Regeln": true,
     "4.1 Profilbereich: Prozess- und Systemtechnik": true,
     "4.2a Konstruktion und Gestaltung": true,
     "4.2b Produktionstechnik": true,
     "4.2c Produktorientierte Fächer": true,
-    "4.3 Profilbereich: Mechatronik": false,
+    "4.3 Profilbereich: Mechatronik": true,
     "6. Projektarbeit": true,
     "7. Freie Wahlmodule": true,
     "8. Fachpraktikum": true,
@@ -40,6 +41,7 @@
     "50990",
     "51017",
     "50467",
+    "70186",
     "41016",
     "30522",
     "30637",
@@ -57,10 +59,14 @@
     "50722",
     "50555",
     "50554",
+    "50016",
     "50156",
     "50224",
+    "50266",
     "50788",
     "50789",
+    "50832",
+    "41018",
     "50161",
     "50810",
     "50061",
