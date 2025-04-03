@@ -5,7 +5,8 @@ from components.course_block import CourseBlock
 
 class SemesterFrame(tk.Frame):
     def __init__(self, parent, title, max_credits=30, drag_drop_manager=None):
-        super().__init__(parent, padx=10, pady=10, relief=tk.RAISED, borderwidth=2)
+        # Reduce padding to save space
+        super().__init__(parent, padx=5, pady=10, relief=tk.RAISED, borderwidth=2)  # Reduced padx from 10 to 5
         self.title = title
         self.max_credits = max_credits
         self.courses = []
@@ -17,27 +18,31 @@ class SemesterFrame(tk.Frame):
         if self.drag_drop_manager:
             self.drag_drop_manager.register_drop_target(self)
         
-        # Create title label
-        title_label = tk.Label(self, text=title, font=("Helvetica", 12, "bold"))
-        title_label.pack(fill=tk.X, pady=(0, 5))
+        # Create title label - use smaller font to save space
+        title_label = tk.Label(self, text=title, font=("Helvetica", 11, "bold"))  # Reduced font size
+        title_label.pack(fill=tk.X, pady=(0, 3))  # Reduced bottom padding
         
-        # Create credits display
+        # Create credits display - use smaller font
         self.credits_label = tk.Label(self, text=f"Credits: 0/{max_credits} LP")
-        self.credits_label.pack(fill=tk.X, pady=(0, 5))
+        self.credits_label.pack(fill=tk.X, pady=(0, 3))  # Reduced bottom padding
         
         # Create scrollable frame using standard ttk scrolledframe approach
-        # This is simpler and more reliable than custom canvas implementation
         self.course_frame = ttk.Frame(self)
         self.course_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Create canvas and scrollbar in the standard way
-        self.canvas = tk.Canvas(self.course_frame, height=500)
-        scrollbar = ttk.Scrollbar(self.course_frame, orient="vertical", command=self.canvas.yview)
+        # Create canvas and scrollbar with smaller width
+        canvas_width = 160  # 30% smaller
+        self.canvas = tk.Canvas(self.course_frame, width=canvas_width, height=500)
         
-        # Configure the canvas
-        self.canvas.configure(yscrollcommand=scrollbar.set)
+        # Create scrollbar (always visible)
+        self.scrollbar = ttk.Scrollbar(self.course_frame, orient="vertical", command=self.canvas.yview)
+        
+        # Configure the canvas to use the scrollbar - use direct set method, not our custom method
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+        
+        # Pack the canvas FIRST, then the scrollbar
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
         # Create a frame to hold the courses
         self.course_container = ttk.Frame(self.canvas)
@@ -47,6 +52,7 @@ class SemesterFrame(tk.Frame):
             (0, 0),
             window=self.course_container,
             anchor="nw",
+            width=canvas_width-4,
             tags="course_container"
         )
         
@@ -54,8 +60,30 @@ class SemesterFrame(tk.Frame):
         self.canvas.bind("<Configure>", self._configure_canvas)
         self.course_container.bind("<Configure>", self._configure_scroll_region)
         
-        # Configure mousewheel scrolling with simpler approach
+        # Configure mousewheel scrolling
         self._bind_mousewheel()
+        
+        # Set initial scroll region to make scrollbar appear
+        self._setup_initial_scroll_region()
+
+    def _setup_initial_scroll_region(self):
+        """Set up an initial scroll region to make scrollbar always visible"""
+        # Set a large enough scroll region initially
+        self.canvas.configure(scrollregion=(0, 0, 0, 1000))
+        
+        # After the widget is fully created, update the scroll region properly
+        self.after(100, self._configure_scroll_region)
+
+    def _scroll_update(self, *args):
+        """Custom scroll update that ensures scrollbar visibility"""
+        # Apply scrollbar position
+        self.scrollbar.set(*args)
+        
+        # Force the scrollbar to be visible when needed
+        if float(args[0]) != 0.0 or float(args[1]) != 1.0:
+            # Content needs scrolling
+            self.scrollbar.grid()
+            self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
     def _bind_mousewheel(self):
         """Bind mousewheel to canvas for scrolling"""
@@ -241,3 +269,113 @@ class SemesterFrame(tk.Frame):
             # 1.0 means scroll all the way to the bottom
             self.canvas.yview_moveto(1.0)
             print(f"Scrolled to bottom - scroll height: {scroll_height}, visible: {self.canvas.winfo_height()}")
+
+    def create_widgets(self):
+        """Create the UI elements"""
+        # Create a menu bar
+        # ... existing menu code ...
+        
+        # Create main container as a PanedWindow for resizable sections
+        main_container = ttk.PanedWindow(self.root, orient=tk.HORIZONTAL)
+        main_container.pack(fill=tk.BOTH, expand=True)
+        
+        # Create left panel for course list
+        left_panel = ttk.Frame(main_container)
+        
+        # Create course list
+        self.course_list = CourseList(left_panel, self.courses, self.drag_drop_manager)
+        self.course_list.pack(fill=tk.BOTH, expand=True)
+        
+        # Create right panel for semesters and requirements
+        right_panel = ttk.PanedWindow(main_container, orient=tk.VERTICAL)
+        
+        # Add semester panel
+        semester_panel = ttk.Frame(right_panel)
+        
+        # ... existing semester panel code ...
+        
+        # Add requirements panel (now in the vertical PanedWindow)
+        self.requirements_panel = ttk.LabelFrame(right_panel, text="Graduation Requirements")
+        
+        # Create graduation requirements display
+        self.graduation_requirements = GraduationRequirements(self.requirements_panel)
+        self.graduation_requirements.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Add both panels to the vertical PanedWindow
+        right_panel.add(semester_panel, weight=3)  # 75% initial height
+        right_panel.add(self.requirements_panel, weight=1)  # 25% initial height
+        
+        # Add both main panels to the horizontal PanedWindow
+        main_container.add(left_panel, weight=1)
+        main_container.add(right_panel, weight=3)
+        
+        # Set initial sash positions after a short delay to ensure widgets are fully loaded
+        self.root.update_idletasks()
+        self.root.after(100, lambda: main_container.sashpos(0, 280))  # Position horizontal sash
+        
+        # ... rest of the method ...
+
+class GraduationRequirements(ttk.Frame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        
+        # Create a canvas for scrolling
+        self.canvas = tk.Canvas(self)
+        scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        
+        # Configure the canvas
+        self.canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Pack the canvas and scrollbar
+        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # Create a frame inside the canvas to hold the requirements
+        self.content_frame = ttk.Frame(self.canvas)
+        self.canvas_window = self.canvas.create_window((0, 0), window=self.content_frame, anchor="nw")
+        
+        # Configure resize handling
+        self.canvas.bind("<Configure>", self._on_canvas_configure)
+        self.content_frame.bind("<Configure>", self._on_frame_configure)
+        
+        # Build the initial requirements UI
+        self._build_requirements_ui()
+        
+        # Bind mousewheel scrolling
+        self._bind_mousewheel()
+    
+    def _on_canvas_configure(self, event):
+        """Update the content frame width when canvas resizes"""
+        # Update the width of the inner frame to match the canvas
+        self.canvas.itemconfig(self.canvas_window, width=event.width)
+    
+    def _on_frame_configure(self, event):
+        """Update the scroll region when the inner frame changes size"""
+        # Update the scrollregion to encompass the inner frame
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+    
+    def _bind_mousewheel(self):
+        """Bind mousewheel to canvas for scrolling"""
+        def _on_mousewheel(event):
+            # Simple scrolling function
+            if hasattr(event, 'delta'):
+                # Windows - positive delta = scroll up, negative = scroll down
+                self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            elif hasattr(event, 'num'):
+                if event.num == 4:
+                    # Linux - scroll up
+                    self.canvas.yview_scroll(-1, "units")
+                elif event.num == 5:
+                    # Linux - scroll down
+                    self.canvas.yview_scroll(1, "units")
+            return "break"
+        
+        # Bind to canvas
+        self.canvas.bind("<MouseWheel>", _on_mousewheel)
+        self.canvas.bind("<Button-4>", _on_mousewheel)
+        self.canvas.bind("<Button-5>", _on_mousewheel)
+        
+        # Bind to content frame
+        self.content_frame.bind("<MouseWheel>", _on_mousewheel)
+        self.content_frame.bind("<Button-4>", _on_mousewheel)
+        self.content_frame.bind("<Button-5>", _on_mousewheel)

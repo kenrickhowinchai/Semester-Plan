@@ -100,7 +100,7 @@
   },
   {
     "title": "Optimization Algorithms",
-    "module_code": "41016",
+    "module_code": "41016k1",
     "credits": 6,
     "exam_type": "Schriftliche Prüfung",
     "grading": "Benotet",
@@ -371,7 +371,7 @@
   },
   {
     "title": "Optimization Algorithms",
-    "module_code": "41016",
+    "module_code": "41016k2",
     "credits": 6,
     "exam_type": "Schriftliche Prüfung",
     "grading": "Benotet",
@@ -915,7 +915,7 @@
   },
   {
     "title": "Applied Data Science for Quality Engineering",
-    "module_code": "50653",
+    "module_code": "50653p",
     "credits": 6,
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",
@@ -1666,7 +1666,7 @@
   
   {
     "title": "Applied Data Science for Quality Engineering",
-    "module_code": "XXXXX",
+    "module_code": "50653f",
     "credits": 6,
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",
@@ -1675,7 +1675,7 @@
   },
   {
     "title": "Applied Data Science for Reliability Engineering",
-    "module_code": "XXXXX",
+    "module_code": "50021",
     "credits": 6,
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",
@@ -1684,7 +1684,7 @@
   },
   {
     "title": "Six Sigma Problemlösung",
-    "module_code": "XXXXX",
+    "module_code": "50578",
     "credits": 6,
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",
@@ -1693,7 +1693,7 @@
   },
   {
     "title": "Introduction to Engineering Data Analytics with R",
-    "module_code": "XXXXX",
+    "module_code": "5072X",
     "credits": 6,
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",
@@ -1702,7 +1702,7 @@
   },
   {
     "title": "Techniken des Qualitäts- managements",
-    "module_code": "XXXXX",
+    "module_code": "50603",
     "credits": 6,
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",
@@ -1720,7 +1720,7 @@
   },
   {
     "title": "Grundlagen des Qualitäts- managements",
-    "module_code": "XXXXX",
+    "module_code": "50346",
     "credits": 6,
     "exam_type": "Portfolioprüfung",
     "grading": "Benotet",

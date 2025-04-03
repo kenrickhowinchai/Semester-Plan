@@ -25,6 +25,9 @@ class CalendarApp:
         self.current_slot = "Default"
         self.state_file = os.path.join(self.save_dir, f"{self.current_slot}.json")
         
+        # Get available save slots - do this BEFORE creating widgets
+        self.available_slots = self.get_available_slots()
+        
         # Initialize drag-drop manager
         self.drag_drop_manager = DragDropManager(self)
         
@@ -34,7 +37,7 @@ class CalendarApp:
         self.load_courses()
         
         # Create UI with save slots
-        self.setup_ui()
+        self.create_widgets()
         
         # Load saved state if it exists
         self.load_state()
@@ -42,72 +45,102 @@ class CalendarApp:
         # Bind save state to window close event
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
     
-    def setup_ui(self):
-        """Set up the main UI components"""
-        # Create top frame for save slot controls
-        self.top_frame = ttk.Frame(self.root)
-        self.top_frame.pack(fill=tk.X, pady=5, padx=10)
+    def create_widgets(self):
+        """Create the UI elements"""
+        # Create a menu bar
+        menu_bar = tk.Menu(self.root)
+        # Add menus to the menu bar
+        file_menu = tk.Menu(menu_bar, tearoff=0)
+        file_menu.add_command(label="Save", command=self.save_state)
+        file_menu.add_command(label="Exit", command=self.on_close)
+        menu_bar.add_cascade(label="File", menu=file_menu)
+        self.root.config(menu=menu_bar)
         
-        # Create save slot selector
-        ttk.Label(self.top_frame, text="Save Slot:").pack(side=tk.LEFT, padx=(0, 5))
+        # Add status/save bar at the TOP instead of the bottom
+        status_frame = ttk.Frame(self.root)
+        status_frame.pack(fill=tk.X, side=tk.TOP, pady=(5, 10))  # TOP instead of BOTTOM
         
-        # Populate available save slots
-        self.available_slots = self.get_available_slots()
+        # Create a left section for save slots
+        left_section = ttk.Frame(status_frame)
+        left_section.pack(side=tk.LEFT, fill=tk.X)
         
-        # Create combobox for save slots
+        # Add save slot selector to status bar
+        ttk.Label(left_section, text="Save Slot:").pack(side=tk.LEFT, padx=5)
         self.slot_var = tk.StringVar(value=self.current_slot)
-        self.slot_selector = ttk.Combobox(
-            self.top_frame, 
+        self.slot_combo = ttk.Combobox(
+            left_section, 
             textvariable=self.slot_var,
             values=self.available_slots,
-            width=20,
-            state="readonly"
+            width=15
         )
-        self.slot_selector.pack(side=tk.LEFT)
-        self.slot_selector.bind("<<ComboboxSelected>>", self.on_slot_selected)
+        self.slot_combo.pack(side=tk.LEFT, padx=5)
+        self.slot_combo.bind("<<ComboboxSelected>>", self.on_slot_selected)
         
-        # Add buttons for save slot management
-        ttk.Button(self.top_frame, text="New Slot", command=self.create_new_slot).pack(side=tk.LEFT, padx=5)
-        ttk.Button(self.top_frame, text="Rename Slot", command=self.rename_slot).pack(side=tk.LEFT, padx=5)
-        ttk.Button(self.top_frame, text="Delete Slot", command=self.delete_slot).pack(side=tk.LEFT, padx=5)
-        ttk.Button(self.top_frame, text="Duplicate", command=self.duplicate_slot).pack(side=tk.LEFT, padx=5)
+        # Add slot management buttons
+        slot_buttons_frame = ttk.Frame(left_section)
+        slot_buttons_frame.pack(side=tk.LEFT, fill=tk.Y)
         
-        # Add save button
-        ttk.Button(self.top_frame, text="Save", command=self.save_state).pack(side=tk.RIGHT, padx=5)
+        # Create buttons with appropriate icons or text
+        ttk.Button(slot_buttons_frame, text="New", width=6, 
+                   command=self.create_new_slot).pack(side=tk.LEFT, padx=2)
         
-        # Create a paned window to divide the space
-        self.paned_window = ttk.PanedWindow(self.root, orient=tk.HORIZONTAL)
-        self.paned_window.pack(fill=tk.BOTH, expand=True)
+        ttk.Button(slot_buttons_frame, text="Rename", width=6, 
+                   command=self.rename_slot).pack(side=tk.LEFT, padx=2)
         
-        # Left side - course list
-        course_list_frame = ttk.Frame(self.paned_window)
-        self.paned_window.add(course_list_frame, weight=1)
+        ttk.Button(slot_buttons_frame, text="Copy", width=6, 
+                   command=self.duplicate_slot).pack(side=tk.LEFT, padx=2)
+        
+        ttk.Button(slot_buttons_frame, text="Delete", width=6, 
+                   command=self.delete_slot).pack(side=tk.LEFT, padx=2)
+        
+        # Add save button on the right
+        ttk.Button(status_frame, text="Save", command=self.save_state).pack(side=tk.RIGHT, padx=5)
+        
+        # Create main container as a PanedWindow for resizable sections
+        main_container = ttk.PanedWindow(self.root, orient=tk.HORIZONTAL)
+        main_container.pack(fill=tk.BOTH, expand=True)
+        
+        # Create left panel for course list
+        left_panel = ttk.Frame(main_container)
         
         # Create course list
-        self.course_list = CourseList(course_list_frame, self.courses, self.drag_drop_manager)
-        self.course_list.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        self.course_list = CourseList(left_panel, self.courses, self.drag_drop_manager)
+        self.course_list.pack(fill=tk.BOTH, expand=True)
         
-        # Right side - semester plan
-        semester_plan_frame = ttk.Frame(self.paned_window)
-        self.paned_window.add(semester_plan_frame, weight=3)
+        # Create right panel for semesters and requirements as a vertical PanedWindow
+        # This allows the user to resize the graduation requirements section
+        right_panel = ttk.PanedWindow(main_container, orient=tk.VERTICAL)
         
-        # Create a canvas for scrolling
-        self.semester_canvas = tk.Canvas(semester_plan_frame)
-        h_scrollbar = ttk.Scrollbar(semester_plan_frame, orient="horizontal", command=self.semester_canvas.xview)
+        # Add semester panel to right panel
+        semester_panel = ttk.Frame(right_panel)
+        
+        # Create horizontal scrollable frame for semesters
+        semester_scroll_frame = ttk.Frame(semester_panel)
+        semester_scroll_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Create canvas for horizontal scrolling of semesters
+        self.semester_canvas = tk.Canvas(semester_scroll_frame)
+        h_scrollbar = ttk.Scrollbar(semester_scroll_frame, orient="horizontal", command=self.semester_canvas.xview)
+        
+        # Configure the canvas
         self.semester_canvas.configure(xscrollcommand=h_scrollbar.set)
-        
-        h_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
         self.semester_canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        h_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
         
-        # Create a frame inside the canvas for the semester frames
+        # Create frame to hold semester frames
         self.semesters_frame = ttk.Frame(self.semester_canvas)
-        self.canvas_window = self.semester_canvas.create_window((0, 0), window=self.semesters_frame, anchor="nw")
+        self.canvas_window = self.semester_canvas.create_window(
+            (0, 0), 
+            window=self.semesters_frame,
+            anchor="nw",
+            tags="semester_frames"
+        )
         
-        # Update scrollregion when the size of the frame changes
+        # Update scroll region when the size changes
         self.semesters_frame.bind("<Configure>", 
-                                lambda e: self.semester_canvas.configure(scrollregion=self.semester_canvas.bbox("all")))
+                             lambda e: self.semester_canvas.configure(scrollregion=self.semester_canvas.bbox("all")))
         self.semester_canvas.bind("<Configure>", 
-                               lambda e: self.semester_canvas.itemconfig(self.canvas_window, height=e.height))
+                              lambda e: self.semester_canvas.itemconfig(self.canvas_window, height=e.height))
         
         # Bind mousewheel to horizontal scroll
         self.semester_canvas.bind("<MouseWheel>", self._on_horizontal_mousewheel)
@@ -116,13 +149,24 @@ class CalendarApp:
         # Create semester frames
         self.create_semesters()
         
-        # Create main content frame below the semester area
-        self.bottom_frame = ttk.Frame(self.root)
-        self.bottom_frame.pack(fill=tk.X, pady=10, padx=10)
+        # Add requirements panel as a resizable section
+        self.requirements_panel = ttk.LabelFrame(right_panel, text="Graduation Requirements")
         
-        # Add graduation requirements tracker
-        self.graduation_frame = GraduationRequirementsFrame(self.bottom_frame, self)
-        self.graduation_frame.pack(fill=tk.X, expand=True)
+        # Create graduation requirements display
+        self.graduation_requirements = GraduationRequirementsFrame(self.requirements_panel, self)
+        self.graduation_requirements.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Add both panels to the vertical PanedWindow
+        right_panel.add(semester_panel, weight=3)  # 75% initial height for semesters
+        right_panel.add(self.requirements_panel, weight=1)  # 25% initial height for requirements
+        
+        # Add both main panels to the horizontal PanedWindow
+        main_container.add(left_panel, weight=1)
+        main_container.add(right_panel, weight=3)
+        
+        # Set initial sash positions after a short delay to ensure widgets are fully created
+        self.root.update_idletasks()
+        self.root.after(100, lambda: main_container.sashpos(0, 280))  # Position horizontal sash
     
     def _on_horizontal_mousewheel(self, event):
         """Handle mousewheel events for horizontal scrolling"""
@@ -496,5 +540,5 @@ class CalendarApp:
     
     def update_graduation_requirements(self):
         """Update the graduation requirements display"""
-        if hasattr(self, 'graduation_frame'):
-            self.graduation_frame.update_requirements()
+        if hasattr(self, 'graduation_requirements'):
+            self.graduation_requirements.update_requirements()
