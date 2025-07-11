@@ -15,6 +15,9 @@ class CourseList(ttk.Frame):
         # Create UI elements
         self.create_widgets()
         
+        # Default scale factor
+        self.scale_factor = 1.0
+
     @property
     def expanded_groups(self):
         return self._expanded_groups
@@ -312,3 +315,79 @@ class CourseList(ttk.Frame):
     def on_search_changed(self, *args):
         """Handle search text changes"""
         self.on_filter_changed()
+        
+    def apply_scaling(self, scale_factor):
+        """Apply scaling to this course list"""
+        # Update fonts for all widgets recursively
+        def update_widget_font(widget):
+            try:
+                current_font = widget.cget("font")
+                if current_font:
+                    if isinstance(current_font, (tuple, list)):
+                        family, size = current_font[0], current_font[1]
+                        new_size = max(8, int(size * scale_factor))
+                        new_font = (family, new_size)
+                        if len(current_font) > 2:
+                            new_font = new_font + current_font[2:]
+                        widget.configure(font=new_font)
+                    elif isinstance(current_font, str):
+                        # Handle font strings
+                        parts = current_font.split()
+                        if len(parts) >= 2:
+                            try:
+                                size = int(parts[1])
+                                new_size = max(8, int(size * scale_factor))
+                                parts[1] = str(new_size)
+                                new_font = " ".join(parts)
+                                widget.configure(font=new_font)
+                            except (ValueError, IndexError):
+                                pass
+            except tk.TclError:
+                pass
+            
+            # Update children
+            try:
+                for child in widget.winfo_children():
+                    update_widget_font(child)
+            except tk.TclError:
+                pass
+        
+        update_widget_font(self)
+        
+        # Update padding for course blocks
+        try:
+            for child in self.courses_frame.winfo_children():
+                if hasattr(child, 'apply_scaling'):
+                    child.apply_scaling(scale_factor)
+        except tk.TclError:
+            pass
+    
+    def set_scale_factor(self, scale_factor):
+        """Update the course list based on scale factor"""
+        self.scale_factor = scale_factor
+        
+        # Store base dimensions if not already stored
+        if not hasattr(self, '_base_dimensions'):
+            self._base_dimensions = {
+                'label_font_size': 9,
+                'entry_width': 20,
+                'button_width': 8,
+                'padx': 5,
+                'pady': 5
+            }
+        
+        # Update fonts for labels and entries
+        label_size = max(6, int(self._base_dimensions['label_font_size'] * scale_factor))
+        
+        # Update padding
+        new_padx = max(1, int(self._base_dimensions['padx'] * scale_factor))
+        new_pady = max(1, int(self._base_dimensions['pady'] * scale_factor))
+        
+        # Update all course blocks in the list
+        if hasattr(self, 'course_blocks'):
+            for course_block in self.course_blocks.values():
+                if hasattr(course_block, 'set_scale_factor'):
+                    course_block.set_scale_factor(scale_factor)
+        
+        # Refresh the course list to apply changes
+        self.refresh_courses()

@@ -5,8 +5,13 @@ from components.course_block import CourseBlock
 
 class SemesterFrame(tk.Frame):
     def __init__(self, parent, title, max_credits=30, drag_drop_manager=None):
+        # Store base dimensions for scaling
+        self.base_padx = 5
+        self.base_pady = 10
+        self.base_borderwidth = 2
+        
         # Reduce padding to save space
-        super().__init__(parent, padx=5, pady=10, relief=tk.RAISED, borderwidth=2)  # Reduced padx from 10 to 5
+        super().__init__(parent, padx=self.base_padx, pady=self.base_pady, relief=tk.RAISED, borderwidth=self.base_borderwidth)
         self.title = title
         self.max_credits = max_credits
         self.courses = []
@@ -19,8 +24,8 @@ class SemesterFrame(tk.Frame):
             self.drag_drop_manager.register_drop_target(self)
         
         # Create title label - use smaller font to save space
-        title_label = tk.Label(self, text=title, font=("Helvetica", 11, "bold"))  # Reduced font size
-        title_label.pack(fill=tk.X, pady=(0, 3))  # Reduced bottom padding
+        self.title_label = tk.Label(self, text=title, font=("Helvetica", 11, "bold"))  # Reduced font size
+        self.title_label.pack(fill=tk.X, pady=(0, 3))  # Reduced bottom padding
         
         # Create credits display - use smaller font
         self.credits_label = tk.Label(self, text=f"Credits: 0/{max_credits} LP")
@@ -31,8 +36,9 @@ class SemesterFrame(tk.Frame):
         self.course_frame.pack(fill=tk.BOTH, expand=True)
         
         # Create canvas and scrollbar with smaller width
-        canvas_width = 160  # 30% smaller
-        self.canvas = tk.Canvas(self.course_frame, width=canvas_width, height=500)
+        self.base_canvas_width = 160  # Store base width for scaling
+        self.base_canvas_height = 500  # Store base height for scaling
+        self.canvas = tk.Canvas(self.course_frame, width=self.base_canvas_width, height=self.base_canvas_height)
         
         # Create scrollbar (always visible)
         self.scrollbar = ttk.Scrollbar(self.course_frame, orient="vertical", command=self.canvas.yview)
@@ -52,7 +58,7 @@ class SemesterFrame(tk.Frame):
             (0, 0),
             window=self.course_container,
             anchor="nw",
-            width=canvas_width-4,
+            width=self.base_canvas_width-4,
             tags="course_container"
         )
         
@@ -158,11 +164,27 @@ class SemesterFrame(tk.Frame):
         course.assigned_semester = self
         
         # Create a visual block for the course
+        print(f"Creating course block for {course.title} in {self.title}")
         course_block = CourseBlock(self.course_container, course, self.drag_drop_manager)
+        
+        # Pack the course block
         course_block.pack(fill=tk.X, pady=3, padx=2)
+        print(f"Packed course block, size: {course_block.winfo_reqwidth()}x{course_block.winfo_reqheight()}")
+        
+        # Apply current scale factor to the new course block if scaling is active
+        if hasattr(self, 'scale_factor') and self.scale_factor != 1.0:
+            print(f"Applying scale factor {self.scale_factor} to new course block")
+            if hasattr(course_block, 'set_scale_factor'):
+                course_block.set_scale_factor(self.scale_factor)
         
         # Store a reference to the block for removal
         self.course_blocks[course] = course_block
+        
+        print(f"Added course block for {course.title}, total blocks: {len(self.course_blocks)}")
+        
+        # Make sure the course block is visible
+        course_block.update_idletasks()
+        print(f"Course block actual size after update: {course_block.winfo_width()}x{course_block.winfo_height()}")
         
         # Add mousewheel scrolling to the course block
         def _on_mousewheel(event):
@@ -192,6 +214,15 @@ class SemesterFrame(tk.Frame):
         # Force update of the scroll region to include the new course
         self.course_container.update_idletasks()
         self._configure_scroll_region()
+        
+        # Ensure canvas window width is properly set after adding course
+        if hasattr(self, 'canvas_window'):
+            current_width = self.canvas.cget('width')
+            # Convert to int if it's a string
+            if isinstance(current_width, str):
+                current_width = int(current_width)
+            self.canvas.itemconfig(self.canvas_window, width=current_width-4)
+            print(f"Updated canvas window width to {current_width-4} after adding course")
         
         # Use after_idle to make sure the scroll happens after everything is updated
         self.after_idle(self.scroll_to_bottom)
@@ -234,30 +265,27 @@ class SemesterFrame(tk.Frame):
     def update_total_credits(self):
         """Update the total credits display"""
         self.total_credits = sum(course.credits for course in self.courses)
-        self.credits_label.config(text=f"Credits: {self.total_credits}/{self.max_credits} LP")
         
-        # Change color if over credit limit
-        if self.total_credits > self.max_credits:
-            self.credits_label.config(foreground="red")
-        else:
-            self.credits_label.config(foreground="black")
+        # Use the new informative credit display (no restrictions)
+        self.update_credits_display()
     
     def update_credits_display(self):
-        if self.total_credits > self.max_credits:
-            # Over the limit - red with warning icon
-            color = 'red'
-            self.credits_label.config(text=f"⚠️ {self.total_credits}/{self.max_credits} LP", fg=color, font=("Arial", 10, "bold"))
-            self.credits_label.config(bg='#ffe0e0')  # Light red background
-        elif self.total_credits == self.max_credits:
-            # Exactly at limit - green
+        """Update credits display with informative colors (no restrictions)"""
+        if self.total_credits >= 35:
+            # High credit load - orange info (not an error, just FYI)
+            color = '#ff8c00'  # Orange
+            self.credits_label.config(text=f"📊 {self.total_credits}/{self.max_credits} LP", fg=color, font=("Arial", 10, "bold"))
+            self.credits_label.config(bg='#fff5e6')  # Light orange background
+        elif self.total_credits >= 25:
+            # Good range - green
             color = 'green'
             self.credits_label.config(text=f"✓ {self.total_credits}/{self.max_credits} LP", fg=color, font=("Arial", 10))
             self.credits_label.config(bg='#e0ffe0')  # Light green background
         else:
-            # Under limit - black
-            color = '#333'
-            self.credits_label.config(text=f"{self.total_credits}/{self.max_credits} LP", fg=color, font=("Arial", 10))
-            self.credits_label.config(bg='#d0e0ff')  # Default background
+            # Under typical load - blue info
+            color = '#1e88e5'  # Blue
+            self.credits_label.config(text=f"ℹ️ {self.total_credits}/{self.max_credits} LP", fg=color, font=("Arial", 10))
+            self.credits_label.config(bg='#e3f2fd')  # Light blue background
 
     def scroll_to_bottom(self):
         """Scroll to show the most recently added course"""
@@ -314,6 +342,110 @@ class SemesterFrame(tk.Frame):
         self.root.after(100, lambda: main_container.sashpos(0, 280))  # Position horizontal sash
         
         # ... rest of the method ...
+
+    def apply_scaling(self, scale_factor):
+        """Apply scaling to this semester frame"""
+        # Update canvas size
+        base_width = 160
+        new_width = int(base_width * scale_factor)
+        self.canvas.configure(width=new_width)
+        
+        # Update canvas window width
+        self.canvas.itemconfig(self.canvas_window, width=new_width-4)
+        
+        # Update fonts for all labels
+        try:
+            # Update title label font
+            current_font = self.winfo_children()[0].cget("font")  # Title label
+            if isinstance(current_font, (tuple, list)):
+                family, size = current_font[0], current_font[1]
+                new_size = max(8, int(size * scale_factor))
+                new_font = (family, new_size, "bold")
+                self.winfo_children()[0].configure(font=new_font)
+            
+            # Update credits label font
+            current_font = self.winfo_children()[1].cget("font")  # Credits label
+            if isinstance(current_font, (tuple, list)):
+                family, size = current_font[0], current_font[1]
+                new_size = max(8, int(size * scale_factor))
+                new_font = (family, new_size)
+                self.winfo_children()[1].configure(font=new_font)
+        except (IndexError, tk.TclError):
+            pass
+        
+        # Apply scaling to all course blocks
+        for course_block in self.course_blocks.values():
+            if hasattr(course_block, 'apply_scaling'):
+                course_block.apply_scaling(scale_factor)
+        
+        # Update scroll region
+        self.after_idle(self._configure_scroll_region)
+
+    def set_scale_factor(self, scale_factor):
+        """Update the semester frame based on scale factor"""
+        self.scale_factor = scale_factor
+        
+        # Scale only the frame's padding and border (not the frame size itself)
+        new_padx = max(1, int(self.base_padx * scale_factor))
+        new_pady = max(1, int(self.base_pady * scale_factor))
+        new_borderwidth = max(1, int(self.base_borderwidth * scale_factor))
+        self.configure(padx=new_padx, pady=new_pady, borderwidth=new_borderwidth)
+        
+        # Only scale the CANVAS dimensions, not the frame itself
+        # WIDTH: Scale EXTREMELY aggressively to fit many more columns when zooming out
+        # HEIGHT: Keep nearly constant to maintain readability
+        
+        if scale_factor < 1.0:
+            # When zooming out, width scales EXTREMELY aggressively
+            width_scale = scale_factor ** 3.0  # EXTREMELY aggressive for zoom out
+            new_width = max(30, int(self.base_canvas_width * width_scale))  # Can go VERY narrow
+            
+            # Height stays nearly constant - only minimal reduction
+            height_scale = max(0.85, scale_factor ** 0.3)  # Very minimal height reduction
+            new_height = max(400, int(self.base_canvas_height * height_scale))  # Keep height readable
+        else:
+            # When zooming in, width scales aggressively, height normally
+            width_scale = scale_factor ** 1.5  # Aggressive width scaling
+            new_width = int(self.base_canvas_width * width_scale)
+            
+            height_scale = scale_factor  # Normal height scaling
+            new_height = int(self.base_canvas_height * height_scale)
+        
+        # Debug output (can be removed later)
+        # print(f"Scaling: factor={scale_factor:.2f}, width_scale={width_scale:.3f}, new_width={new_width}, new_height={new_height}")
+        
+        self.canvas.configure(width=new_width, height=new_height)
+        
+        # Update the canvas window width to match the new canvas width
+        self.canvas.itemconfig(self.canvas_window, width=new_width-4)
+        
+        # DO NOT set frame width - let it expand naturally with the canvas
+        
+        # Update the canvas window width to match the new canvas width
+        self.canvas.itemconfig(self.canvas_window, width=new_width-4)
+        
+        # Update fonts for title and credits labels
+        for widget, base_size, style in [
+            (self.title_label, 11, "bold"),
+            (self.credits_label, 9, "")
+        ]:
+            try:
+                new_size = max(6, int(base_size * scale_factor))
+                if style:
+                    widget.configure(font=("Helvetica", new_size, style))
+                else:
+                    widget.configure(font=("Helvetica", new_size))
+            except tk.TclError:
+                pass
+        
+        # Update course blocks
+        for course_block in self.course_blocks.values():
+            if hasattr(course_block, 'set_scale_factor'):
+                course_block.set_scale_factor(scale_factor)
+        
+        # Update layout
+        self.update_idletasks()
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
 class GraduationRequirements(ttk.Frame):
     def __init__(self, parent):

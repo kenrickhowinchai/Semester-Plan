@@ -20,7 +20,18 @@ venv/
 env/
 ENV/
 
+# Test files
+test_*.py
+*_test.py
+
+# Documentation and debug files
+*.md
+debug_*.py
+*_debug.py
+debug.log
+*.log
+
 # Distribution / packaging
 dist/
 build/
-*.egg-info/git rm -r --cached .
+*.egg-info/

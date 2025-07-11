@@ -174,6 +174,63 @@ class CourseBlock(tk.Frame):
         if self.drag_drop_manager and hasattr(self.drag_drop_manager, 'app'):
             self.drag_drop_manager.app.save_state()
     
+    def set_scale_factor(self, scale_factor):
+        """Update the course block based on scale factor"""
+        self.scale_factor = scale_factor
+        
+        # Store base dimensions if not already stored
+        if not hasattr(self, '_base_dimensions'):
+            self._base_dimensions = {
+                'padx': 5,
+                'pady': 5,
+                'title_font_size': 9,
+                'details_font_size': 8,
+                'fav_font_size': 10,
+                'fav_width': 2
+            }
+        
+        # Update frame padding
+        new_padx = max(1, int(self._base_dimensions['padx'] * scale_factor))
+        new_pady = max(1, int(self._base_dimensions['pady'] * scale_factor))
+        self.configure(padx=new_padx, pady=new_pady)
+        
+        # Ensure minimum width for visibility - important for scaled semesters
+        min_width = max(25, int(120 * scale_factor))  # Minimum 25px, scales from 120px base
+        try:
+            self.configure(width=min_width)
+        except tk.TclError:
+            pass  # Some platforms don't support width configuration
+        
+        # Update fonts
+        title_size = max(6, int(self._base_dimensions['title_font_size'] * scale_factor))
+        details_size = max(6, int(self._base_dimensions['details_font_size'] * scale_factor))
+        fav_size = max(6, int(self._base_dimensions['fav_font_size'] * scale_factor))
+        fav_width = max(1, int(self._base_dimensions['fav_width'] * scale_factor))
+        
+        # Update title label font
+        if hasattr(self, 'title_label'):
+            try:
+                self.title_label.configure(font=("Arial", title_size, "bold"))
+            except tk.TclError:
+                pass
+        
+        # Update details label font
+        if hasattr(self, 'details_label'):
+            try:
+                self.details_label.configure(font=("Arial", details_size))
+            except tk.TclError:
+                pass
+        
+        # Update favorite button
+        if hasattr(self, 'fav_btn'):
+            try:
+                self.fav_btn.configure(font=("Arial", fav_size), width=fav_width)
+            except tk.TclError:
+                pass
+        
+        # Force layout update
+        self.update_idletasks()
+
     def on_drag_start(self, event):
         """Start dragging this course block"""
         if self.drag_drop_manager:

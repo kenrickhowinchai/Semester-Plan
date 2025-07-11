@@ -181,34 +181,23 @@ class GraduationRequirementsFrame(ttk.Frame):
                 group = course.group.strip()  # Remove any whitespace
                 credits = course.credits
                 
-                # Debug print to see what groups are being processed
-                print(f"Processing course: {course.title}, Group: {group}, Credits: {credits}")
-                
                 # Use more explicit matching to fix the issues
                 if group.startswith("1."):  # Kernbereich - Informatik und Mathematik
                     credits_per_requirement["Kernbereich_Informatik und Mathematik"] += credits
-                    print(f"  -> Added to Kernbereich_Informatik und Mathematik")
                 elif group.startswith("2."):  # Kernbereich - Simulation und Optimierung
                     credits_per_requirement["Kernbereich_Simulation und Optimierung"] += credits
-                    print(f"  -> Added to Kernbereich_Simulation und Optimierung")
                 elif group.startswith("3."):  # Kernbereich - Messen, Steuern, Regeln
                     credits_per_requirement["Kernbereich_Messen, Steuern, Regeln"] += credits
-                    print(f"  -> Added to Kernbereich_Messen, Steuern, Regeln")
                 elif group.startswith("4."):  # Profilbereich
                     credits_per_requirement["Profilbereich"] += credits
-                    print(f"  -> Added to Profilbereich")
                 elif group.startswith("6."):  # Projekt
                     credits_per_requirement["Projekt"] += credits
-                    print(f"  -> Added to Projekt")
                 elif group.startswith("7."):  # Freiwahlbereich (was Wahlbereich)
                     credits_per_requirement["Freiwahlbereich"] += credits
-                    print(f"  -> Added to Freiwahlbereich")
                 elif group.startswith("8."):  # Fachpraktikum 
                     credits_per_requirement["Fachpraktikum"] += credits
-                    print(f"  -> Added to Fachpraktikum")
                 elif group.startswith("9."):  # Masterarbeit
                     credits_per_requirement["Masterarbeit"] += credits
-                    print(f"  -> Added to Masterarbeit")
         
         # Calculate total for Kernbereich
         kernbereich_total = (
@@ -267,3 +256,96 @@ class GraduationRequirementsFrame(ttk.Frame):
             self.total_label.config(foreground="green", font=("Helvetica", 11, "bold"))
         else:
             self.total_label.config(foreground="black", font=("Helvetica", 11))
+    
+    def apply_scaling(self, scale_factor):
+        """Apply scaling to this graduation requirements frame"""
+        # Update fonts for all widgets recursively
+        def update_widget_font(widget):
+            try:
+                current_font = widget.cget("font")
+                if current_font:
+                    if isinstance(current_font, (tuple, list)):
+                        family, size = current_font[0], current_font[1]
+                        new_size = max(8, int(size * scale_factor))
+                        new_font = (family, new_size)
+                        if len(current_font) > 2:
+                            new_font = new_font + current_font[2:]
+                        widget.configure(font=new_font)
+                    elif isinstance(current_font, str):
+                        # Handle font strings
+                        parts = current_font.split()
+                        if len(parts) >= 2:
+                            try:
+                                size = int(parts[1])
+                                new_size = max(8, int(size * scale_factor))
+                                parts[1] = str(new_size)
+                                new_font = " ".join(parts)
+                                widget.configure(font=new_font)
+                            except (ValueError, IndexError):
+                                pass
+            except tk.TclError:
+                pass
+            
+            # Update children
+            try:
+                for child in widget.winfo_children():
+                    update_widget_font(child)
+            except tk.TclError:
+                pass
+        
+        update_widget_font(self)
+        
+        # Update progress bar lengths
+        for progress_bar in self.progress_bars.values():
+            base_length = 200
+            new_length = int(base_length * scale_factor)
+            progress_bar.configure(length=new_length)
+    
+    def set_scale_factor(self, scale_factor):
+        """Update the graduation requirements frame based on scale factor"""
+        self.scale_factor = scale_factor
+        
+        # Store base dimensions if not already stored
+        if not hasattr(self, '_base_dimensions'):
+            self._base_dimensions = {
+                'title_font_size': 14,
+                'label_font_size': 10,
+                'padx': 5,
+                'pady': 5
+            }
+        
+        # Update fonts
+        title_size = max(10, int(self._base_dimensions['title_font_size'] * scale_factor))
+        label_size = max(8, int(self._base_dimensions['label_font_size'] * scale_factor))
+        
+        # Update padding
+        new_padx = max(1, int(self._base_dimensions['padx'] * scale_factor))
+        new_pady = max(1, int(self._base_dimensions['pady'] * scale_factor))
+        
+        # Find and update all labels in the frame
+        def update_fonts_recursive(widget):
+            try:
+                current_font = widget.cget("font")
+                if current_font:
+                    if isinstance(current_font, (tuple, list)) and len(current_font) >= 2:
+                        family, size = current_font[0], current_font[1]
+                        # Determine if this is a title or regular label
+                        if size >= 14:  # Title
+                            new_size = max(10, int(size * scale_factor))
+                        else:  # Regular label
+                            new_size = max(8, int(size * scale_factor))
+                        new_font = (family, new_size)
+                        if len(current_font) > 2:
+                            new_font = new_font + current_font[2:]
+                        widget.configure(font=new_font)
+            except tk.TclError:
+                pass
+            
+            # Recursively update children
+            try:
+                for child in widget.winfo_children():
+                    update_fonts_recursive(child)
+            except tk.TclError:
+                pass
+        
+        update_fonts_recursive(self)

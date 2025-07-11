@@ -77,37 +77,51 @@ class DragDropManager:
         self.target_container = None
         
         for target in self.potential_targets:
-            # Get screen coordinates of the target
-            x1 = target.winfo_rootx()
-            y1 = target.winfo_rooty()
-            x2 = x1 + target.winfo_width()
-            y2 = y1 + target.winfo_height()
-            
-            # Check if cursor is over target
-            if x >= x1 and x <= x2 and y >= y1 and y <= y2:
-                self.target_container = target
+            # Get screen coordinates of the target with expanded hit area
+            try:
+                x1 = target.winfo_rootx()
+                y1 = target.winfo_rooty()
+                x2 = x1 + target.winfo_width()
+                y2 = y1 + target.winfo_height()
                 
-                # Check if course is compatible with this semester
-                if self.dragged_item and hasattr(self.dragged_item, 'course'):
-                    course = self.dragged_item.course
-                    if hasattr(course, 'semester') and hasattr(target, 'title'):
-                        compatible = is_compatible_semester(course.semester, target.title)
-                        
-                        # Highlight target accordingly - green if compatible, red if not
-                        if compatible:
-                            target.configure(background="#D5F5E3")  # Light green
-                        else:
-                            target.configure(background="#FADBD8")  # Light red
-                            
-                        print(f"Course {course.title} compatibility with {target.title}: {compatible}")
-                    else:
-                        # Default highlight if we can't determine compatibility
-                        target.configure(background="#CCE5FF")  # Light blue
-                else:
-                    # Default highlight
-                    target.configure(background="#CCE5FF")  # Light blue
+                # Expand the drop zone to make it easier to hit narrow columns
+                margin = 10  # 10 pixel margin on each side
+                x1_expanded = x1 - margin
+                x2_expanded = x2 + margin
+                
+                # Debug output for target detection (less verbose)
+                if hasattr(target, 'title') and self.dragged_item:
+                    print(f"Target {target.title}: ({x1_expanded},{y1}) to ({x2_expanded},{y2}), cursor: ({x},{y})")
+                
+                # Check if cursor is over target (using expanded area)
+                if x >= x1_expanded and x <= x2_expanded and y >= y1 and y <= y2:
+                    self.target_container = target
+                    print(f"Found target: {target.title if hasattr(target, 'title') else target}")
                     
-                break
+                    # Check if course is compatible with this semester
+                    if self.dragged_item and hasattr(self.dragged_item, 'course'):
+                        course = self.dragged_item.course
+                        if hasattr(course, 'semester') and hasattr(target, 'title'):
+                            compatible = is_compatible_semester(course.semester, target.title)
+                            
+                            # Highlight target accordingly - green if compatible, red if not
+                            if compatible:
+                                target.configure(background="#D5F5E3")  # Light green
+                            else:
+                                target.configure(background="#FADBD8")  # Light red
+                                
+                            print(f"Course {course.title} compatibility with {target.title}: {compatible}")
+                        else:
+                            # Default highlight if we can't determine compatibility
+                            target.configure(background="#CCE5FF")  # Light blue
+                    else:
+                        # Default highlight
+                        target.configure(background="#CCE5FF")  # Light blue
+                        
+                    break
+            except tk.TclError as e:
+                print(f"Error checking target: {e}")
+                continue
         
         if old_target != self.target_container:
             print(f"Target changed: {self.target_container}")

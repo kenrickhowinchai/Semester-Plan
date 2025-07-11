@@ -1430,7 +1430,7 @@
   },
   {
     "title": "Mechatronik und Systemdynamik",
-    "module_code": "50432",
+    "module_code": "50432s",
     "credits": 6,
     "exam_type": "Mündliche Prüfung",
     "grading": "Benotet",
@@ -1729,6 +1729,46 @@
   },
   
   {
+    "title": "Betriebswirtschaftslehre und Management - Einführung für Nicht-Wirtschaftswissenschaftler*innen",
+    "module_code": "70110",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+
+  {
+    "title": "Venture Campus",
+    "module_code": "70256",
+    "credits": 12,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+
+  {
+    "title": "Life Science Venturing",
+    "module_code": "70356",
+    "credits": 6,
+    "exam_type": "Portfolioprüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+
+  {
+    "title": "Wirtschaftswissenschaftliche Grundlagen für Studierende der Ingenieurwissenschaften",
+    "module_code": "30570",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  
+  {
     "title": "Fachpraktikum für den Masterstudiengang Computational Engineering Science",
     "module_code": "50849",
     "credits": 6,
@@ -1748,3 +1788,4 @@
     "group": "9. Masterarbeit"
   }
 ]
+
