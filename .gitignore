@@ -35,3 +35,7 @@ debug.log
 dist/
 build/
 *.egg-info/
+
+# PyInstaller
+*.spec
+*.manifest

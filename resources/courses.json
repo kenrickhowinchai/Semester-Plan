@@ -116,6 +116,16 @@
     "semester": "WiSe",
     "group": "1. Kernbereich 1: Informatik und Mathematik"
   },
+
+  {
+    "title": "Robot Learning",
+    "module_code": "41165",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
+    "group": "1. Kernbereich 1: Informatik und Mathematik"
+  },
   {
     "title": "Sicherheit und Zuverlässigkeit technischer Anlagen",
     "module_code": "30530",
@@ -1748,6 +1758,7 @@
     "group": "7. Freie Wahlmodule"
   },
 
+
   {
     "title": "Life Science Venturing",
     "module_code": "70356",
@@ -1765,6 +1776,16 @@
     "exam_type": "Schriftliche Prüfung",
     "grading": "Benotet",
     "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+
+  {
+    "title": "Robot Learning",
+    "module_code": "41165f",
+    "credits": 6,
+    "exam_type": "Schriftliche Prüfung",
+    "grading": "Benotet",
+    "semester": "SoSe",
     "group": "7. Freie Wahlmodule"
   },
   
@@ -1786,6 +1807,34 @@
     "grading": "Benotet",
     "semester": "WiSe/SoSe",
     "group": "9. Masterarbeit"
+  },
+
+  {
+    "title": "Freiwahl 1",
+    "module_code": "FW001",
+    "credits": 6,
+    "exam_type": "k.A.",
+    "grading": "k.A.",
+    "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Freiwahl 2",
+    "module_code": "FW002",
+    "credits": 6,
+    "exam_type": "k.A.",
+    "grading": "k.A.",
+    "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
+  },
+  {
+    "title": "Freiwahl 3",
+    "module_code": "FW003",
+    "credits": 6,
+    "exam_type": "k.A.",
+    "grading": "k.A.",
+    "semester": "WiSe/SoSe",
+    "group": "7. Freie Wahlmodule"
   }
 ]
 

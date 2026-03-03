@@ -1,9 +1,17 @@
 # This code can be run once to create the initial state file structure
 import os
 import json
+import sys
 
 # Get the path to the resources directory
-resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'resources')
+# Handle both development and frozen (exe) environments
+if getattr(sys, 'frozen', False):
+    # Running as compiled executable
+    application_path = os.path.dirname(sys.executable)
+    resources_dir = os.path.join(application_path, '_internal', 'resources')
+else:
+    # Running in development mode
+    resources_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'resources')
 
 # Create the state file with an empty structure
 state = {

@@ -3,20 +3,19 @@ from tkinter import ttk
 
 from components.course_block import CourseBlock
 
+
 class CourseList(ttk.Frame):
-    def __init__(self, parent, courses, drag_drop_manager):
+    def __init__(self, parent, courses, drag_drop_manager, on_add_course=None):
         super().__init__(parent)
-        
+
         self.courses = courses
         self.drag_drop_manager = drag_drop_manager
+        self.on_add_course = on_add_course
         self.filtered_courses = courses
-        self._expanded_groups = {}  # Track which groups are expanded
-        
-        # Create UI elements
-        self.create_widgets()
-        
-        # Default scale factor
+        self._expanded_groups = {}
         self.scale_factor = 1.0
+
+        self.create_widgets()
 
     @property
     def expanded_groups(self):
@@ -27,367 +26,247 @@ class CourseList(ttk.Frame):
         self._expanded_groups = value
 
     def create_widgets(self):
-        """Create the UI elements"""
-        # Create search frame
+        # --- Search bar ---------------------------------------------------
         search_frame = ttk.Frame(self)
-        search_frame.pack(fill=tk.X, padx=5, pady=5)
-        
-        # Search field
-        ttk.Label(search_frame, text="Search:").pack(side=tk.LEFT, padx=(0, 5))
+        search_frame.pack(fill=tk.X, padx=6, pady=(6, 2))
+
+        ttk.Label(search_frame, text="Suche:").pack(side=tk.LEFT, padx=(0, 4))
         self.search_var = tk.StringVar()
         self.search_entry = ttk.Entry(search_frame, textvariable=self.search_var)
-        self.search_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
-        
-        # Add clear button
-        ttk.Button(search_frame, text="Clear", command=self.clear_search).pack(side=tk.LEFT, padx=5)
-        
-        # Filter frame for group and semester filtering
+        self.search_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=4)
+        ttk.Button(search_frame, text="\u2715", width=3,
+                   command=self.clear_search).pack(side=tk.LEFT)
+
+        # --- Filters ------------------------------------------------------
         filter_frame = ttk.Frame(self)
-        filter_frame.pack(fill=tk.X, padx=5, pady=5)
-        
-        # Group filter
-        ttk.Label(filter_frame, text="Group:").grid(row=0, column=0, padx=(0, 5))
-        self.group_var = tk.StringVar(value="All")
-        self.group_combo = ttk.Combobox(filter_frame, textvariable=self.group_var, state="readonly")
-        self.group_combo.grid(row=0, column=1, padx=5, sticky="ew")
-        
-        # Semester filter
-        ttk.Label(filter_frame, text="Semester:").grid(row=0, column=2, padx=(10, 5))
-        self.semester_var = tk.StringVar(value="All")
-        self.semester_combo = ttk.Combobox(filter_frame, textvariable=self.semester_var, state="readonly")
-        self.semester_combo.grid(row=0, column=3, padx=5, sticky="ew")
-        
-        # Favorites filter
+        filter_frame.pack(fill=tk.X, padx=6, pady=2)
+
+        ttk.Label(filter_frame, text="Gruppe:").grid(row=0, column=0, padx=(0, 4))
+        self.group_var = tk.StringVar(value="Alle")
+        self.group_combo = ttk.Combobox(filter_frame, textvariable=self.group_var,
+                                        state="readonly")
+        self.group_combo.grid(row=0, column=1, padx=4, sticky="ew")
+
+        ttk.Label(filter_frame, text="Semester:").grid(row=0, column=2, padx=(8, 4))
+        self.semester_var = tk.StringVar(value="Alle")
+        self.semester_combo = ttk.Combobox(filter_frame, textvariable=self.semester_var,
+                                           state="readonly")
+        self.semester_combo.grid(row=0, column=3, padx=4, sticky="ew")
+
         self.show_favorites_var = tk.BooleanVar(value=False)
-        ttk.Checkbutton(
-            filter_frame, 
-            text="Favorites Only", 
-            variable=self.show_favorites_var,
-            command=self.on_filter_changed
-        ).grid(row=0, column=4, padx=(10, 0))
-        
-        # Configure grid weights
+        ttk.Checkbutton(filter_frame, text="\u2605 Favoriten",
+                        variable=self.show_favorites_var,
+                        command=self.on_filter_changed).grid(
+            row=0, column=4, padx=(8, 0))
+
         filter_frame.columnconfigure(1, weight=1)
         filter_frame.columnconfigure(3, weight=1)
-        
-        # Populate combo boxes
+
         self.update_filter_combos()
-        
-        # Bind events
         self.search_var.trace("w", self.on_search_changed)
         self.group_combo.bind("<<ComboboxSelected>>", self.on_filter_changed)
         self.semester_combo.bind("<<ComboboxSelected>>", self.on_filter_changed)
-        
-        # Create scrollable canvas for courses
+
+        # --- Add-course button --------------------------------------------
+        if self.on_add_course:
+            add_frame = ttk.Frame(self)
+            add_frame.pack(fill=tk.X, padx=6, pady=(2, 4))
+            ttk.Button(add_frame, text="\u2795  Kurs hinzuf\u00fcgen",
+                       command=self.on_add_course).pack(fill=tk.X)
+
+        # --- Scrollable course list ---------------------------------------
         canvas_frame = ttk.Frame(self)
-        canvas_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-        
-        self.canvas = tk.Canvas(canvas_frame)
-        scrollbar = ttk.Scrollbar(canvas_frame, orient="vertical", command=self.canvas.yview)
-        
+        canvas_frame.pack(fill=tk.BOTH, expand=True, padx=6, pady=(0, 4))
+
+        self.canvas = tk.Canvas(canvas_frame, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(canvas_frame, orient="vertical",
+                                  command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=scrollbar.set)
-        
+
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        
-        # Create a frame inside the canvas to hold the courses
+
         self.courses_frame = ttk.Frame(self.canvas)
-        self.canvas_window = self.canvas.create_window((0, 0), window=self.courses_frame, anchor="nw")
-        
-        # Update scrollregion when the size of the frame changes
+        self.canvas_window = self.canvas.create_window(
+            (0, 0), window=self.courses_frame, anchor="nw")
+
         self.courses_frame.bind("<Configure>", self.on_frame_configure)
         self.canvas.bind("<Configure>", self.on_canvas_configure)
-        
-        # Bind mousewheel for scrolling
         self.bind_mousewheel()
-        
-        # Set initial expanded groups state
+
         self._expanded_groups = {}
-        
-        # Show initial courses
         self.filtered_courses = self.courses.copy()
         self.display_courses()
 
+    # ------------------------------------------------------------------
+    #  Canvas / scroll helpers
+    # ------------------------------------------------------------------
     def on_frame_configure(self, event=None):
-        """Update the scroll region to encompass the inner frame"""
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-    
+
     def on_canvas_configure(self, event=None):
-        """Resize the inner frame to match the canvas width"""
         if event:
-            canvas_width = event.width
-            self.canvas.itemconfig(self.canvas_window, width=canvas_width)
-    
+            self.canvas.itemconfig(self.canvas_window, width=event.width)
+
     def bind_mousewheel(self):
-        """Bind mousewheel events to scroll the canvas"""
-        # Bind to the canvas itself
         self.canvas.bind("<MouseWheel>", self._on_mousewheel)
         self.canvas.bind("<Button-4>", self._on_mousewheel)
         self.canvas.bind("<Button-5>", self._on_mousewheel)
-        
-        # Bind to the frame containing the courses
         self.courses_frame.bind("<MouseWheel>", self._on_mousewheel)
         self.courses_frame.bind("<Button-4>", self._on_mousewheel)
         self.courses_frame.bind("<Button-5>", self._on_mousewheel)
-        
-        # Bind to all child widgets recursively
         self._bind_mousewheel_recursive(self.courses_frame)
-    
+
     def _bind_mousewheel_recursive(self, widget):
-        """Recursively bind mousewheel events to all children of a widget"""
         widget.bind("<MouseWheel>", self._on_mousewheel)
         widget.bind("<Button-4>", self._on_mousewheel)
         widget.bind("<Button-5>", self._on_mousewheel)
-        
-        # Apply to all children recursively
         for child in widget.winfo_children():
             self._bind_mousewheel_recursive(child)
 
     def _on_mousewheel(self, event):
-        """Handle mousewheel events for scrolling"""
-        # Different OSes send different events
         delta = 0
-        if hasattr(event, 'num') and event.num == 5 or hasattr(event, 'delta') and event.delta < 0:
-            delta = 1  # Scroll down
-        elif hasattr(event, 'num') and event.num == 4 or hasattr(event, 'delta') and event.delta > 0:
-            delta = -1  # Scroll up
-            
+        if (hasattr(event, 'num') and event.num == 5) or (hasattr(event, 'delta') and event.delta < 0):
+            delta = 1
+        elif (hasattr(event, 'num') and event.num == 4) or (hasattr(event, 'delta') and event.delta > 0):
+            delta = -1
         self.canvas.yview_scroll(delta, "units")
-        return "break"  # Prevent propagation to parent widget
-    
+        return "break"
+
+    # ------------------------------------------------------------------
+    #  Filtering
+    # ------------------------------------------------------------------
     def on_filter_changed(self, event=None):
-        """Handle filter change events"""
-        # Get filter values
-        group_filter = self.group_var.get()
-        semester_filter = self.semester_var.get()
-        search_text = self.search_var.get().lower()
-        favorites_only = self.show_favorites_var.get()
-        
-        # Apply filters
+        group_f = self.group_var.get()
+        sem_f = self.semester_var.get()
+        search = self.search_var.get().lower()
+        fav = self.show_favorites_var.get()
+
         self.filtered_courses = []
-        for course in self.courses:
-            # Check if course has required attributes
-            if not hasattr(course, 'title'):
+        for c in self.courses:
+            if not hasattr(c, 'title'):
                 continue
-            
-            # Check group filter
-            if group_filter != "All" and course.group != group_filter:
+            if group_f not in ("Alle", "All") and c.group != group_f:
                 continue
-                
-            # Check semester filter
-            if semester_filter != "All":
-                if not hasattr(course, 'semester') or course.semester is None:
+            if sem_f not in ("Alle", "All"):
+                if not getattr(c, 'semester', None) or sem_f not in c.semester:
                     continue
-                if semester_filter not in course.semester:
-                    continue
-                    
-            # Check favorites filter
-            if favorites_only and not (hasattr(course, 'favorite') and course.favorite):
+            if fav and not getattr(c, 'favorite', False):
                 continue
-                
-            # Check search text
-            if search_text:
-                # Search in title, description, and module code
-                title_match = search_text in course.title.lower()
-                desc_match = hasattr(course, 'description') and search_text in course.description.lower()
-                code_match = hasattr(course, 'module_code') and search_text in course.module_code.lower()
-                group_match = hasattr(course, 'group') and search_text in course.group.lower()
-                
-                if not (title_match or desc_match or code_match or group_match):
+            if search:
+                haystack = " ".join([
+                    c.title.lower(),
+                    getattr(c, 'description', '').lower(),
+                    getattr(c, 'module_code', '').lower(),
+                    getattr(c, 'group', '').lower()])
+                if search not in haystack:
                     continue
-                    
-            # If all filters passed, add to filtered list
-            self.filtered_courses.append(course)
-        
-        # Display filtered courses
+            self.filtered_courses.append(c)
         self.display_courses()
-    
+
     def clear_search(self):
-        """Clear the search field and reset filters"""
         self.search_var.set("")
-        self.group_var.set("All")
-        self.semester_var.set("All")
+        self.group_var.set("Alle")
+        self.semester_var.set("Alle")
         self.show_favorites_var.set(False)
         self.filtered_courses = self.courses
         self.display_courses()
-    
+
+    # ------------------------------------------------------------------
+    #  Display
+    # ------------------------------------------------------------------
     def toggle_group(self, group_name, content_frame, toggle_button):
-        """Toggle visibility of courses in a group"""
         if self.expanded_groups.get(group_name, True):
-            # Collapse group
             content_frame.pack_forget()
-            toggle_button.config(text="►")  # Right-pointing triangle
+            toggle_button.config(text="\u25b6")
             self.expanded_groups[group_name] = False
         else:
-            # Expand group
-            content_frame.pack(fill=tk.X, expand=True, padx=5)
-            toggle_button.config(text="▼")  # Down-pointing triangle
+            content_frame.pack(fill=tk.X, expand=True, padx=4)
+            toggle_button.config(text="\u25bc")
             self.expanded_groups[group_name] = True
-        
-        # Update scroll region after toggle
         self.on_frame_configure()
-    
+
     def display_courses(self):
-        """Display the filtered courses, grouped by their categories"""
-        # Clear the current display
-        for widget in self.courses_frame.winfo_children():
-            widget.destroy()
-        
-        # Group courses by their group
-        grouped_courses = {}
-        for course in self.filtered_courses:
-            if not hasattr(course, 'group') or course.group is None:
-                if "Uncategorized" not in grouped_courses:
-                    grouped_courses["Uncategorized"] = []
-                grouped_courses["Uncategorized"].append(course)
-            else:
-                if course.group not in grouped_courses:
-                    grouped_courses[course.group] = []
-                grouped_courses[course.group].append(course)
-        
-        # Display courses by group
-        for group_name, courses in sorted(grouped_courses.items()):
-            # Create group frame
+        for w in self.courses_frame.winfo_children():
+            w.destroy()
+
+        grouped = {}
+        for c in self.filtered_courses:
+            g = getattr(c, 'group', None) or "Unkategorisiert"
+            grouped.setdefault(g, []).append(c)
+
+        for group_name, courses in sorted(grouped.items()):
             group_frame = ttk.Frame(self.courses_frame)
-            group_frame.pack(fill=tk.X, expand=True, pady=(5, 0), padx=5)
-            
-            # Create header frame with toggle button
-            header_frame = ttk.Frame(group_frame)
-            header_frame.pack(fill=tk.X, expand=True)
-            
-            # Create a separate frame for the actual course blocks
+            group_frame.pack(fill=tk.X, expand=True, pady=(4, 0), padx=4)
+
+            header = ttk.Frame(group_frame)
+            header.pack(fill=tk.X, expand=True)
+
             content_frame = ttk.Frame(group_frame)
-            
-            # Create toggle button
-            is_expanded = self.expanded_groups.get(group_name, True)  # Default to expanded
-            toggle_text = "▼" if is_expanded else "►"  # Down/right arrow
-            toggle_button = ttk.Button(
-                header_frame, 
-                text=toggle_text, 
-                width=2,
-                command=lambda g=group_name, c=content_frame, b=None: self.toggle_group(g, c, b)
-            )
-            # Store button reference in the lambda to update later
-            toggle_button.configure(command=lambda g=group_name, c=content_frame, b=toggle_button: 
-                                 self.toggle_group(g, c, b))
-            toggle_button.pack(side=tk.LEFT, padx=(0, 5))
-            
-            # Group header label
-            group_label = ttk.Label(
-                header_frame, 
-                text=f"{group_name} ({len(courses)} courses)",
-                font=("Helvetica", 10, "bold")
-            )
-            group_label.pack(side=tk.LEFT, fill=tk.X, expand=True)
-            
-            # Add courses to the content frame
-            for course in courses:
-                # Check if this course is already assigned to a semester
-                is_placed = hasattr(course, 'assigned_semester') and course.assigned_semester is not None
-                
-                # Create the course block
-                course_block = CourseBlock(content_frame, course, self.drag_drop_manager, is_placed)
-                course_block.pack(fill=tk.X, pady=2, padx=2)
-            
-            # Show content frame only if group is expanded
-            if is_expanded:
-                content_frame.pack(fill=tk.X, expand=True, padx=5)
-            
-            # Add a separator after each group
+
+            is_exp = self.expanded_groups.get(group_name, True)
+            toggle_btn = ttk.Button(header, text="\u25bc" if is_exp else "\u25b6",
+                                    width=2)
+            toggle_btn.configure(
+                command=lambda g=group_name, cf=content_frame, b=toggle_btn:
+                    self.toggle_group(g, cf, b))
+            toggle_btn.pack(side=tk.LEFT, padx=(0, 4))
+
+            ttk.Label(header, text=f"{group_name} ({len(courses)})",
+                      font=("Segoe UI", 9, "bold")).pack(
+                side=tk.LEFT, fill=tk.X, expand=True)
+
+            for c in courses:
+                is_placed = getattr(c, 'assigned_semester', None) is not None
+                cb = CourseBlock(content_frame, c, self.drag_drop_manager, is_placed)
+                cb.pack(fill=tk.X, pady=2, padx=2)
+
+            if is_exp:
+                content_frame.pack(fill=tk.X, expand=True, padx=4)
+
             ttk.Separator(self.courses_frame, orient='horizontal').pack(
-                fill=tk.X, padx=5, pady=(5, 10), expand=True
-            )
-        
-        # Update the scroll region
+                fill=tk.X, padx=4, pady=(4, 8), expand=True)
+
         self.on_frame_configure()
-        
-        # Re-bind mousewheel events to all new widgets
         self._bind_mousewheel_recursive(self.courses_frame)
-    
+
     def update_filter_combos(self):
-        """Update the values in the filter combo boxes"""
-        groups = ["All"] + sorted(list(set(course.group for course in self.courses if course.group)))
+        groups = ["Alle"] + sorted({c.group for c in self.courses if c.group})
         self.group_combo["values"] = groups
-        
-        semesters = ["All", "WiSe", "SoSe", "WiSe/SoSe"]
-        self.semester_combo["values"] = semesters
-    
+        self.semester_combo["values"] = ["Alle", "WiSe", "SoSe", "WiSe/SoSe"]
+
     def on_search_changed(self, *args):
-        """Handle search text changes"""
         self.on_filter_changed()
-        
+
+    # ------------------------------------------------------------------
+    #  Scaling
+    # ------------------------------------------------------------------
     def apply_scaling(self, scale_factor):
-        """Apply scaling to this course list"""
-        # Update fonts for all widgets recursively
-        def update_widget_font(widget):
+        def update_font(widget):
             try:
-                current_font = widget.cget("font")
-                if current_font:
-                    if isinstance(current_font, (tuple, list)):
-                        family, size = current_font[0], current_font[1]
-                        new_size = max(8, int(size * scale_factor))
-                        new_font = (family, new_size)
-                        if len(current_font) > 2:
-                            new_font = new_font + current_font[2:]
-                        widget.configure(font=new_font)
-                    elif isinstance(current_font, str):
-                        # Handle font strings
-                        parts = current_font.split()
+                cf = widget.cget("font")
+                if cf:
+                    if isinstance(cf, (tuple, list)) and len(cf) >= 2:
+                        fam, sz = cf[0], cf[1]
+                        ns = max(8, int(sz * scale_factor))
+                        nf = (fam, ns) + (cf[2:] if len(cf) > 2 else ())
+                        widget.configure(font=nf)
+                    elif isinstance(cf, str):
+                        parts = cf.split()
                         if len(parts) >= 2:
                             try:
-                                size = int(parts[1])
-                                new_size = max(8, int(size * scale_factor))
-                                parts[1] = str(new_size)
-                                new_font = " ".join(parts)
-                                widget.configure(font=new_font)
-                            except (ValueError, IndexError):
+                                parts[1] = str(max(8, int(int(parts[1]) * scale_factor)))
+                                widget.configure(font=" ".join(parts))
+                            except ValueError:
                                 pass
             except tk.TclError:
                 pass
-            
-            # Update children
             try:
-                for child in widget.winfo_children():
-                    update_widget_font(child)
+                for ch in widget.winfo_children():
+                    update_font(ch)
             except tk.TclError:
                 pass
-        
-        update_widget_font(self)
-        
-        # Update padding for course blocks
-        try:
-            for child in self.courses_frame.winfo_children():
-                if hasattr(child, 'apply_scaling'):
-                    child.apply_scaling(scale_factor)
-        except tk.TclError:
-            pass
-    
+        update_font(self)
+
     def set_scale_factor(self, scale_factor):
-        """Update the course list based on scale factor"""
         self.scale_factor = scale_factor
-        
-        # Store base dimensions if not already stored
-        if not hasattr(self, '_base_dimensions'):
-            self._base_dimensions = {
-                'label_font_size': 9,
-                'entry_width': 20,
-                'button_width': 8,
-                'padx': 5,
-                'pady': 5
-            }
-        
-        # Update fonts for labels and entries
-        label_size = max(6, int(self._base_dimensions['label_font_size'] * scale_factor))
-        
-        # Update padding
-        new_padx = max(1, int(self._base_dimensions['padx'] * scale_factor))
-        new_pady = max(1, int(self._base_dimensions['pady'] * scale_factor))
-        
-        # Update all course blocks in the list
-        if hasattr(self, 'course_blocks'):
-            for course_block in self.course_blocks.values():
-                if hasattr(course_block, 'set_scale_factor'):
-                    course_block.set_scale_factor(scale_factor)
-        
-        # Refresh the course list to apply changes
-        self.refresh_courses()
